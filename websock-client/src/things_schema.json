@@ -1,0 +1,13 @@
+{
+    "team": 4,
+    "room": {
+        "id": 1,
+        "sensors": {
+            "airConditioning": [31],
+            "luminosity": [33],
+            "movement": [32],
+            "humidity": [27, 28, 29],
+            "temperature": [27, 28, 29]
+        }
+    }
+}
