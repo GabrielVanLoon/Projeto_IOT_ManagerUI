@@ -4,12 +4,12 @@ import schema from '../../things_schema.json'
 
 function LuminositySensor(props) {
 
-    const sensorTopic = `${schema.room.id}/luz/${props.id}`
-    const [luminosityValue, setLuminosityValue] = useState(false)
+    const sensorTopic = `${schema.room.id}/luz/${props.sensorID}`
+    const [sensorValue, setSensorValue] = useState(false)
     const [newValues, setNewValues] = useState({
         "s": "29/10/20 23:48:33",
         "21": 1,
-        "0": props.id
+        "0": props.sensorID
     })
 
     useEffect(() => {
@@ -19,10 +19,9 @@ function LuminositySensor(props) {
             if(topic !== sensorTopic)
                 return        
             console.log("IN ", sensorTopic, message.toString())
-            setLuminosityValue(JSON.parse(message.toString()))
+            setSensorValue(JSON.parse(message.toString()))
         });
     })
-
 
     const handleSubmit = async (e) => {
         e.preventDefault()
@@ -31,20 +30,20 @@ function LuminositySensor(props) {
 
     return(
         <div className="LuminositySensor SensorCard">
-            <h3>Sensor {props.id} at <span className="highlight">{sensorTopic}</span></h3>
+            <h3>Sensor {props.sensorID} at <span className="highlight">{sensorTopic}</span></h3>
             
             <div className="CardColumns">
                 <div className="sub">
-                    <p><strong>ID do Dispositivo:</strong> {luminosityValue["0"] || 'unknow'} </p>
-                    <p><strong>Estado:</strong> {luminosityValue["21"] || 'unknow'} </p>
-                    <p><strong>Data:</strong> {luminosityValue["s"] || 'unknow'} </p>
-                    <p><strong>Raw:</strong> {luminosityValue && JSON.stringify(luminosityValue)} </p>
+                    <p><strong>ID do Dispositivo:</strong> {sensorValue["0"] || 'unknow'} </p>
+                    <p><strong>Estado:</strong> {sensorValue["21"] || 'unknow'} </p>
+                    <p><strong>Data:</strong> {sensorValue["s"] || 'unknow'} </p>
+                    <p><strong>Raw:</strong> {sensorValue && JSON.stringify(sensorValue)} </p>
                 </div>
 
                 <div className="pub">
                     <form onSubmit={handleSubmit}>
                     <p><strong>ID do Dispositivo:</strong>
-                        <input type="number" value={props.id} disabled/> </p>
+                        <input type="number" value={props.sensorID} disabled/> </p>
                     
                     <p><strong>Estado:</strong> 
                         <input type="number" min="0" max="1" value={newValues["21"]} 

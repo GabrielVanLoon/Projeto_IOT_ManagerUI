@@ -3,6 +3,9 @@ import mqtt from 'mqtt'
 import './App.css'
 
 import Luminosity from './components/Luminosity/Luminosity'
+import Temperature from './components/Temperature/Temperature'
+import Humidity from './components/Humidity/Humidity'
+import Movement from './components/Movement/Movement'
 
 // Client global consumidor do MQTT
 var mqtt_client  = mqtt.connect({
@@ -39,6 +42,9 @@ function App() {
                 <>
                     <h2>Status: Broker MQTT Conectado com sucesso!</h2> 
                     <Luminosity  client={mqtt_client} />
+                    <Temperature  client={mqtt_client} />
+                    <Humidity  client={mqtt_client} />
+                    <Movement  client={mqtt_client} />
                 </>
             }    
             </main>
