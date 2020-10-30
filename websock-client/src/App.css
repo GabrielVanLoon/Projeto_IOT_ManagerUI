@@ -1,38 +1,75 @@
-.App {
-  text-align: center;
+body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+      'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+      sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    box-sizing: border-box;
+    background-color: #ccc;
+}
+  
+code {
+font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+header {
+    padding: 10px;
+    border-bottom: solid 4px #333;
+    background-color: #eee;
+    text-align: center;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+header h1 {
+    margin: 0; 
+    padding: 0;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+main {
+    display: block;
+    margin: 0 auto;
+    padding: 20px;
+    max-width: 800px;
 }
 
-.App-link {
-  color: #61dafb;
+main .SensorCard {
+    display: block;
+    margin: 20px auto;
+    padding: 20px;
+    border-radius: 2px;
+    background-color: #fff;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+main .SensorCard h3 {
+    display: block;
+    width: 100%;
+    margin-bottom: 5px;
+    padding-bottom: 5px;
+    border-bottom: solid 2px #333;
 }
+
+main .SensorCard > * { margin-top: 0; }
+
+main .SensorCard .CardColumns { 
+    display: flex;
+    flex-flow: row;
+    padding: 10px 0 0 0;
+}
+
+main .SensorCard .CardColumns .sub,
+main .SensorCard .CardColumns .pub {
+    display: block;
+    width: 50%;
+}
+
+main .SensorCard .CardColumns .pub input {
+    display: block;
+}
+
+main .SensorCard .CardColumns p:first-child { margin-top: 0; }
+main .SensorCard .CardColumns p:last-child { margin-bottom: 0; }
+
+
+.highlight { color: #ff6600; }
