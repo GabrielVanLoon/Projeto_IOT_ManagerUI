@@ -21,7 +21,7 @@ function HumiditySensor(props) {
             console.log("IN ", sensorTopic, message.toString())
             setSensorValue(JSON.parse(message.toString()))
         });
-    })
+    }, [])
 
     const handleSubmit = async (e) => {
         e.preventDefault()
