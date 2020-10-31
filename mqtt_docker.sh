@@ -2,7 +2,7 @@
 
 # Instala utilitarios do mosquitto (https://www.vultr.com/docs/how-to-install-mosquitto-mqtt-broker-server-on-ubuntu-16-04)
 # sudo apt-get update
-#sudo apt-get install mosquitto
+# sudo apt-get install mosquitto
 # sudo apt-get install mosquitto-clients
 
 # Instalando a imagem do Mosquitto MQTT (https://hub.docker.com/_/eclipse-mosquitto)
