@@ -65,6 +65,10 @@ main .SensorCard .CardColumns .pub {
     width: 50%;
 }
 
+main .SensorCard .CardColumns .sub {
+    padding-right: 10px;
+}
+
 main .SensorCard .CardColumns .pub input {
     display: block;
 }

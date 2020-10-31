@@ -18,7 +18,8 @@ var mqtt_client  = mqtt.connect({
 function App() {
 
     const [clientConnectionState, setConnectionState] = useState(false)
-    
+    const [filter, setFilter] = useState('all')
+
     useEffect( () => {
         mqtt_client.on('connect', () => setConnectionState(true))
         mqtt_client.on('reconnect', () => setConnectionState(true))
@@ -36,19 +37,17 @@ function App() {
             </header>
             
             <main>
-            { !clientConnectionState && 
+                { !clientConnectionState && 
                 <h2>Status: Aguardando conexão....</h2> }
             
-            { clientConnectionState && 
-                <>
-                    <h2>Status: Broker MQTT Conectado com sucesso!</h2> 
-                    {/* <Luminosity  client={mqtt_client} /> */}
-                    {/* <Temperature  client={mqtt_client} /> */}
-                    {/* <Humidity  client={mqtt_client} /> */}
-                    {/* <Movement  client={mqtt_client} /> */}
-                    <AirConditioning  client={mqtt_client} />
-                </>
-            }    
+                { clientConnectionState && 
+                <h2>Status: Broker MQTT Conectado com sucesso!</h2> }                 
+
+                <Luminosity  client={mqtt_client}  />
+                <Temperature  client={mqtt_client} />
+                <Humidity  client={mqtt_client} />
+                <Movement  client={mqtt_client} />
+                <AirConditioning  client={mqtt_client} />
             </main>
         </div>
     );
