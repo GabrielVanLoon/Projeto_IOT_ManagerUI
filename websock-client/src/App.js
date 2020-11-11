@@ -18,7 +18,6 @@ var mqtt_client  = mqtt.connect({
 function App() {
 
     const [clientConnectionState, setConnectionState] = useState(false)
-    const [filter, setFilter] = useState('all')
 
     useEffect( () => {
         mqtt_client.on('connect', () => setConnectionState(true))
