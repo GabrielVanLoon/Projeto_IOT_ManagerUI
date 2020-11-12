@@ -1,70 +1,56 @@
-# Getting Started with Create React App
+# Utilitário - Broker Simulator
+Aplicação web utilitária que permite simular os dispositivos (*things*) que serão acessados no projeto no formato JSON previamente definido e facilitando a realização dos testes de sua camada.
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Instalação e Dependências
+Para utilizar a aplicação e o broker será necessário a instalação do `docker` para executar o container com o broker mosquitto e o `npm` para rodar a aplicação react (preferencialmente última versão estável de ambos). Após baixar as dependências, basta executar os seguintes comandos:
 
-## Available Scripts
+```bash=
+sudo apt-get install mosquitto-clients # Opcional - Clients CLI para testar pub e subscribe no mosquitto
+docker pull eclipse-mosquitto # Baixa a imagem do mosquitto para o docker
+npm install # instala as depedências do projeto na pasta node_modules 
+```
 
-In the project directory, you can run:
+## Configurando o Schema dos dispositivos
+Para configurar o ID do time, da sala e dos dispositivos para serem simulados, basta modificar o arquivo localizado em `src/things_schemas.json`. Ex: Caso o seu time seja o nº 2, responsável pela sala nº 3 e com os sensores de temperatura 1, 2 e 3 o arquivo deverá ser do seguinte formato:
 
-### `npm start`
+```json
+{
+    "team": 2,
+    "room": {
+        "id": 3,
+        "sensors": { "temperature": [1, 2, 3]  }
+    }
+}
+```
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## Como Executar
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+### Executando o Container Mosquitto
+Após a instalação das dependências, basta abrir o projeto no seu terminal de preferência, navegar até a raíz do projeto (que contém o arquivo de configuração `mosquitto.conf` e executar o seguinte comando para iniciar o container:
 
-### `npm test`
+```bash
+docker run -it -p 1883:1883 -p 9001:9001 -v $(pwd)/mosquitto.conf:/mosquitto/config/mosquitto.conf eclipse-mosquitto
+```
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Obs: Caso a porta 1883 ou 9001 esteja ocupada, a inicialização irá falhar e será necessário encerrar o dispositivo que está ocupando as portas antes de rodar o comando acima novamente.
 
-### `npm run build`
+Após a inicialização do container, as mensagens de que as portas IPv4, IPv6 e Websocket foram expostas serão exibidas e o broker irá executar até que seja encerrado com um sinal `CTRL^C`
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### Executando o Broker Simulator
+Após iniciar a execução do mosquitto, basta iniciar a aplicação React utilizando o seguinte comando:
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+```
+npm start
+```
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Isso irá abrir um webserver na url `http://localhost:3000` e inicializará a aplicação no navegador padrão automaticamente.
 
-### `npm run eject`
+## Como Utilizar
+Para cada um dos dispositivos definidos no `things_schema.json`, será gerado um card. O tópico ao qual o card se refere irá aparecer em destaque logo ao topo do card e, em seguida, haverão duas áreas:
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+- **Dados do Subscriber:** à esquerda ficam os dados (inicialmente vazios) que serão exibidos sempre que o client for informado que uma nova mensagem foi publicada no tópico, os dados estão dispostos de forma amigável mas a mensagem bruta (no formato JSON) também é mostrado no campo **raw**.
+- **Formulário de Publish:** à direira fica um formulário para simular os publish's no tópico (facilitando os testes ao automatizar a transformação dos dados para JSON). Após realizar um publish, os dados são enviados para o Mosquitto que, por consequência, irão retornar e atualizar os **Dados do Subscriber**.
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+### Sobre o Ar Condicionado
+Todas as regras de codificação da especificação são feitas automaticamentes, além disso a aplicação também simula o dispositivo que publica a resposta no tópico `{time}/response`.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
