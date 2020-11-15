@@ -1,0 +1,13 @@
+.MuiGrid-container {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    box-sizing: border-box;
+    padding: 5%;
+}
+
+.MuiPaper-rounded {
+    border-radius: 4px;
+    padding: 5%;
+    margin: 1%;
+}

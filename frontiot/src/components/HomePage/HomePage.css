@@ -1,0 +1,11 @@
+.HomePage {
+    /* background-color: rgb(152, 230, 255);
+    background-image: url('/src/img/background.jpg'); */
+    background: linear-gradient(-45deg,#0f91fc63 , #21cdf3e5);
+    min-height: 100%;
+    min-height: 100vh;
+    display: flex;
+    background-size: cover;
+    align-items: center;
+    justify-content: center;
+}
