@@ -3,7 +3,7 @@ import React, {useState, useEffect} from 'react'
 import schema from '../../things_schema.json'
 import '../Style/style.css'
 import { Paper, withStyles, Grid, TextField, Button, FormControlLabel, Checkbox, Divider, Switch } from '@material-ui/core';
-
+import Aircon from "../../img/ar-condicionado.svg";
 const styles = theme => ({
     margin: {
         margin: theme.spacing.unit * 4,
@@ -95,91 +95,78 @@ function AirConditioningSensor(props) {
     }
 
     return(
-        <div className="AirConditioningSensor SensorCard">
-            <h3>Sensor {props.sensorID} at <span className="highlight">{sensorPublishTopic}</span></h3>
-            <Paper elevation={3}>
-                    <Grid container alignItems="center" justify="space-between">
-                        <Grid>
-                                <Grid item>
-                                    <p><strong>ID do Dispositivo:</strong> {sensorValue["0"] || 'unknow'} </p>
-                                </Grid>
-                                <Grid item>
-                                <p><strong>Temperatura Máxima:</strong> {sensorValue["1"] || 'unknow'} ºC </p>
-                                </Grid>
-                                <Grid item>
-                                <p><strong>Temperatura Mínima:</strong> {sensorValue["2"] || 'unknow'} ºC </p>
-                                </Grid>
-                                <Grid item>
-                                <p><strong>Tempo entre Comandos:</strong> {sensorValue["3"] || 'unknow'} minutos </p>
-                                </Grid>
-                                <Grid item>
-                                <p><strong>Temperatura Operante:</strong> {sensorValue["4"] || 'unknow'} ºC </p>
-                                </Grid>
-                                <Grid item>
-                                <p><strong>Ar Ligado:</strong> {sensorValue["21"] || '0'} </p>
-                                </Grid>
-                                <Grid item>
-                                <p><strong>Ar Ligado (Sala Vazia):</strong> {sensorValue["22"] || '0'} </p>
-                                </Grid>
-                                <Grid item>
-                                <p><strong>Identificador:</strong> {sensorValue["23"] || 'unknow'} </p>
-                                </Grid>
-                                <Grid item>
-                                <p><strong>Data:</strong> {sensorValue["s"] || 'unknow'} </p>
-                                </Grid>
-                                <Grid item>
-                                <p><strong>Raw:</strong> {sensorValue && JSON.stringify(sensorValue)} </p>
-                                </Grid>
-                                <form onSubmit={handleSubmit}>
-                                    <Grid item>
-                                        <p><strong>ID do Dispositivo:</strong>
-                                            <input type="number" value={props.sensorID} disabled/> </p>
-                                    </Grid>
-                                    <Grid item>
-                                    <p><strong>Temperatura Máxima:</strong> 
-                                        <input type="number" value={newValues["1"]} min="17" max="23"
-                                            onChange={e => setNewValues({...newValues, "1": e.target.value })} /> </p>
-                                    </Grid>
-                                    <Grid item>
-                                    <p><strong>Temperatura Mínima:</strong> 
-                                        <input type="number" value={newValues["2"]} min="16" max="22"
-                                            onChange={e => setNewValues({...newValues, "2": e.target.value })} /> </p>
-                                    </Grid>
-                                    <Grid item>
-                                    <p><strong>Tempo entre Comandos:</strong> 
-                                        <input type="number" value={newValues["3"]} min="1" max="120"
-                                            onChange={e => setNewValues({...newValues, "3": e.target.value })} /> </p>
-                                    </Grid>
-                                    <Grid item>
-                                    <p><strong>Temperatura Operante:</strong> 
-                                        <input type="number" value={newValues["4"]} min="16" max="23"
-                                            onChange={e => setNewValues({...newValues, "4": e.target.value })} /> </p>
-                                    </Grid>
-                                    <Grid item>
-                                    <p><strong>Ar Ligado:</strong> 
-                                        <input type="number" value={newValues["21"]} min="0" max="1"
-                                            onChange={e => setNewValues({...newValues, "21": e.target.value })} /> </p>
-                                    </Grid>
-                                    <Grid item>
-                                    <p><strong>Ar Ligado (Sala Vazia):</strong> 
-                                        <input type="number" value={newValues["22"]} min="0" max="1"
-                                            onChange={e => setNewValues({...newValues, "22": e.target.value })} /> </p>    
-                                    </Grid>
-                                    <Grid item>
-                                        <input  hidden = 'True' type="number" value={newValues["23"]} disabled/>
-                                    </Grid> 
-                                    <Grid item>
-                                        <input hidden = 'True' min="0" max="1" value={newValues["s"]} 
-                                            onChange={e => setNewValues({...newValues, "s": e.target.value })} />
-                                    </Grid>
-                                    <Grid item>
-                                    <p><button type="submit">Publicar Atualizações</button></p>
-                                    </Grid>
-                                </form>
-                        </Grid>
+            <Grid item xs={4}>
+            <Paper elevation={3} >
+                <h3>Sensor {props.sensorID} at <span className="highlight">{sensorPublishTopic}</span></h3>
+                <img src={Aircon} alt="aircon" style={{ height: 100, width: 100 }}/>
+                <Grid container alignItems="center">
+                    <Grid item>
+                        <p><strong>ID do Dispositivo:</strong> {sensorValue["0"] || 'unknow'} </p>
                     </Grid>
+                    <Grid item>
+                    <p><strong>Temperatura Máxima:</strong> {sensorValue["1"] || 'unknow'} ºC </p>
+                    </Grid>
+                    <Grid item>
+                    <p><strong>Temperatura Mínima:</strong> {sensorValue["2"] || 'unknow'} ºC </p>
+                    </Grid>
+                    <Grid item>
+                    <p><strong>Tempo entre Comandos:</strong> {sensorValue["3"] || 'unknow'} minutos </p>
+                    </Grid>
+                    <Grid item>
+                    <p><strong>Temperatura Operante:</strong> {sensorValue["4"] || 'unknow'} ºC </p>
+                    </Grid>
+                    <Grid item>
+                    <p><strong>Ar Ligado:</strong> {sensorValue["21"] || '0'} </p>
+                    </Grid>
+                    <Grid item>
+                    <p><strong>Ar Ligado (Sala Vazia):</strong> {sensorValue["22"] || '0'} </p>
+                    </Grid>
+                    <Grid item>
+                    <p><strong>Identificador:</strong> {sensorValue["23"] || 'unknow'} </p>
+                    </Grid>
+                    <Grid item>
+                    <p><strong>Data:</strong> {sensorValue["s"] || 'unknow'} </p>
+                    </Grid>
+                    <Grid item>
+                    <p><strong>Raw:</strong> {sensorValue && JSON.stringify(sensorValue)} </p>
+                    </Grid>
+                    <form onSubmit={handleSubmit}>
+                        <input hidden = 'True' type="number" value={props.sensorID} disabled/>
+                        <input hidden = 'True' type="number" value={newValues["1"]} min="17" max="23"
+                            onChange={e => setNewValues({...newValues, "1": e.target.value })} />                     
+                        <input hidden = 'True' type="number" value={newValues["2"]} min="16" max="22"
+                            onChange={e => setNewValues({...newValues, "2": e.target.value })} />
+                        <input hidden = 'True' type="number" value={newValues["3"]} min="1" max="120"
+                            onChange={e => setNewValues({...newValues, "3": e.target.value })} />
+                        <Grid item>
+                        <p><strong>Temperatura Operante:</strong> 
+                            <input type="number" value={newValues["4"]} min="16" max="23"
+                                onChange={e => setNewValues({...newValues, "4": e.target.value })} /> </p>
+                        </Grid>
+                        <Grid item>
+                        <p><strong>Ar Ligado:</strong> 
+                            <input type="number" value={newValues["21"]} min="0" max="1"
+                                onChange={e => setNewValues({...newValues, "21": e.target.value })} /> </p>
+                        </Grid>
+                        <Grid item>
+                        <p><strong>Ar Ligado (Sala Vazia):</strong> 
+                            <input type="number" value={newValues["22"]} min="0" max="1"
+                                onChange={e => setNewValues({...newValues, "22": e.target.value })} /> </p>    
+                        </Grid>
+                        <Grid item>
+                            <input  hidden = 'True' type="number" value={newValues["23"]} disabled/>
+                        </Grid> 
+                        <Grid item>
+                            <input hidden = 'True' min="0" max="1" value={newValues["s"]} 
+                                onChange={e => setNewValues({...newValues, "s": e.target.value })} />
+                        </Grid>
+                        <Grid item>
+                        <p><button type="submit">Publicar Atualizações</button></p>
+                        </Grid>
+                    </form>
+                </Grid>
             </Paper>
-        </div>
+        </Grid>
     )
 }
 
