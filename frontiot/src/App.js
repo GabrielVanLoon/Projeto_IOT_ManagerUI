@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router,Route, Switch, Redirect } from "react-router-dom";
+import './App.css';
+
 import HomePage from './components/HomePage/HomePage';
 import LoginPage from './components/LoginPage/LoginPage';
-import './App.css';
 import { isAuthenticated } from "./services/auth";
 
 const Home = () => (
@@ -31,13 +32,13 @@ const PrivateRoute = ({ component: Component, ...rest }) => (
 class App extends Component {
   render() {
     return (
-      <Router>
         <div className="App">
-          <Route exact path="/" component={Login} />
-          <PrivateRoute exact path="/home2" component={Home} />
-          <Route exact path="/home" component={Home} />
+          <Router>
+            <Route exact path="/" component={LoginPage} />
+            <PrivateRoute exact path="/home2" component={HomePage} />
+            <Route exact path="/home" component={HomePage} />
+          </Router>
         </div>
-      </Router>
     );
   }
 }
