@@ -19,12 +19,19 @@ const mqttAuthInformation = {
 
 app.use(express.json())
 
+// @TODO: Please remove this line in production
 app.use((req, res, next) => {
     res.header("Access-Control-Allow-Origin", "*");
     res.header("Access-Control-Allow-Methods", 'GET,POST');
     app.use(cors());
     next();
 });
+
+app.use(express.static('build'))
+
+app.get('/', (req, res) =>{
+    res.sendFile('./build/index.html')
+})
 
 app.post('/api/auth',(req, res) => {
     console.log("Login attempt at", Date())
