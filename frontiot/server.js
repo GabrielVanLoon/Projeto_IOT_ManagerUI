@@ -1,6 +1,7 @@
 require('dotenv').config()
 var express = require('express')
 var app = express()
+const path = require('path');
 const cors = require('cors');
 
 const port = process.env.SERVER_PORT || 3333
@@ -27,11 +28,8 @@ app.use((req, res, next) => {
     next();
 });
 
+// Serve the static content from React
 app.use(express.static('build'))
-
-app.get('/', (req, res) =>{
-    res.sendFile('./build/index.html')
-})
 
 app.post('/api/auth',(req, res) => {
     console.log("Login attempt at", Date())
@@ -51,6 +49,11 @@ app.post('/api/auth',(req, res) => {
         res.json(mqttAuthInformation)
     }
 })
+
+app.use( (req,res) => {
+    res.sendFile(path.join(__dirname+'/build/index.html'));
+});
+
 
 app.listen(port, () => {
     console.log(`App listening at http://localhost:${port}`)
