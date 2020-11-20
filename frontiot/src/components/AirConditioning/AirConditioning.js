@@ -4,6 +4,10 @@ import schema from '../../things_schema.json'
 import '../Style/style.css'
 import { Paper, withStyles, Grid, TextField, Button, FormControlLabel, Checkbox, Divider, Switch } from '@material-ui/core';
 import Aircon from "../../img/ar-condicionado.svg";
+import AddIcon from '@material-ui/icons/Add';
+import RemoveIcon from '@material-ui/icons/Remove';
+import PowerSettingsNewIcon from '@material-ui/icons/PowerSettingsNew';
+
 const styles = theme => ({
     margin: {
         margin: theme.spacing.unit * 4,
@@ -94,13 +98,49 @@ function AirConditioningSensor(props) {
         setNewValues({...newValues, "23": getRandom() })
     }
 
+    const increaseTemp = ()=> {
+        if(newValues["4"]<28){
+            setNewValues({...newValues, "4": newValues["4"]+1 })
+        }
+    }
+    const decreaseTemp = ()=> {
+        if(newValues["4"]>16){
+            setNewValues({...newValues, "4": newValues["4"]-1 })
+        }
+    }
+    const turnOnOff = ()=> {
+        if(newValues["21"]){
+            setNewValues({...newValues, "21": 0 })
+        }else{
+            setNewValues({...newValues, "21": 1 })
+        }
+    }
+
+    const emptyRoom = ()=> {
+        if(newValues["22"]){
+            setNewValues({...newValues, "22": 0 })
+        }else{
+            setNewValues({...newValues, "22": 1 })
+        }
+    }
+
     return(
             <Grid item xs={4}>
             <Paper elevation={3} >
                 <h3>Sensor {props.sensorID} at <span className="highlight">{sensorPublishTopic}</span></h3>
                 <img src={Aircon} alt="aircon" style={{ height: 100, width: 100 }}/>
-                <Grid container alignItems="center">
+                <Grid container>
+                    <Grid item xs={1}>
+                        <PowerSettingsNewIcon style={{ 'font-size' : '3.5rem' }}/>
+                    </Grid>
+                    <Grid item xs={11}>
+                        <p><strong>Sensor de Umidade</strong></p>
+                        <p>{sensorValue["0"] ? 'Ligado' : 'Desligado' }</p>
+                    </Grid>
                     <Grid item>
+                        <p><strong>Estado:</strong> {sensorValue["21"] || 'unknow'}</p>
+                    </Grid>
+                    {/* <Grid item>
                         <p><strong>ID do Dispositivo:</strong> {sensorValue["0"] || 'unknow'} </p>
                     </Grid>
                     <Grid item>
@@ -128,8 +168,10 @@ function AirConditioningSensor(props) {
                     <p><strong>Data:</strong> {sensorValue["s"] || 'unknow'} </p>
                     </Grid>
                     <Grid item>
-                    <p><strong>Raw:</strong> {sensorValue && JSON.stringify(sensorValue)} </p>
+                        <strong>Raw:</strong> {sensorValue && JSON.stringify(sensorValue)}
+                    </Grid>*/} 
                     </Grid>
+                <Grid container justify="center" alignItems="center">
                     <form onSubmit={handleSubmit}>
                         <input hidden = 'True' type="number" value={props.sensorID} disabled/>
                         <input hidden = 'True' type="number" value={newValues["1"]} min="17" max="23"
@@ -138,20 +180,29 @@ function AirConditioningSensor(props) {
                             onChange={e => setNewValues({...newValues, "2": e.target.value })} />
                         <input hidden = 'True' type="number" value={newValues["3"]} min="1" max="120"
                             onChange={e => setNewValues({...newValues, "3": e.target.value })} />
+                        <input hidden = 'True' type="number" value={newValues["4"]} min="16" max="30"
+                                onChange={e => setNewValues({...newValues, "4": e.target.value })} />
+                        <input hidden = 'True' type="number" value={newValues["21"]} min="0" max="1"
+                                onChange={e => setNewValues({...newValues, "21": e.target.value })} />
+                        <input hidden = 'True' type="number" value={newValues["22"]} min="0" max="1"
+                                onChange={e => setNewValues({...newValues, "22": e.target.value })} /> 
+                        <Grid item spacing={12}>
+                        <p><strong>Temperatura:</strong></p>
+                            <Button onClick={increaseTemp} variant="contained" color="primary" style={{'border-radius':'10%'}}><AddIcon/></Button>
+                            <strong>{newValues["4"] || 'unknow'} ºC </strong>
+                            <Button onClick={decreaseTemp} variant="contained" color="primary" style={{'border-radius':'10%'}}><RemoveIcon/></Button>
+                        </Grid> 
                         <Grid item>
-                        <p><strong>Temperatura Operante:</strong> 
-                            <input type="number" value={newValues["4"]} min="16" max="23"
-                                onChange={e => setNewValues({...newValues, "4": e.target.value })} /> </p>
+                            <p><strong>Ar Ligado:</strong></p>
+                            <Switch checked={newValues["21"]}
+                            onChange={turnOnOff}
+                            color="primary"/>
                         </Grid>
                         <Grid item>
-                        <p><strong>Ar Ligado:</strong> 
-                            <input type="number" value={newValues["21"]} min="0" max="1"
-                                onChange={e => setNewValues({...newValues, "21": e.target.value })} /> </p>
-                        </Grid>
-                        <Grid item>
-                        <p><strong>Ar Ligado (Sala Vazia):</strong> 
-                            <input type="number" value={newValues["22"]} min="0" max="1"
-                                onChange={e => setNewValues({...newValues, "22": e.target.value })} /> </p>    
+                            <p><strong>Ar Ligado (Sala Vazia):</strong></p>
+                                <Switch checked={newValues["22"]} 
+                                onChange={emptyRoom}
+                                color="primary"/>
                         </Grid>
                         <Grid item>
                             <input  hidden = 'True' type="number" value={newValues["23"]} disabled/>
@@ -161,7 +212,7 @@ function AirConditioningSensor(props) {
                                 onChange={e => setNewValues({...newValues, "s": e.target.value })} />
                         </Grid>
                         <Grid item>
-                        <p><button type="submit">Publicar Atualizações</button></p>
+                            <p><button type="submit">Publicar Atualizações</button></p>
                         </Grid>
                     </form>
                 </Grid>
@@ -172,9 +223,8 @@ function AirConditioningSensor(props) {
 
 function AirConditioning(props) {
     return (
-        <div className="AirConditioning SensorSection" >
-            <h2>Ar Condicionados</h2>
-            
+        
+        <>
             { schema.room.sensors.airConditioning.map((sensorID, index) => 
                 <AirResponser sensorID={sensorID} client={props.client} key={index} /> )
             }
@@ -182,7 +232,7 @@ function AirConditioning(props) {
             { schema.room.sensors.airConditioning.map((sensorID, index) => 
                  <AirConditioningSensor sensorID={sensorID} client={props.client} key={200+index} /> )
             }
-        </div>
+        </>
     )
 }
 
