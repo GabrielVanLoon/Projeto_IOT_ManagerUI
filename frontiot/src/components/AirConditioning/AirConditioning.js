@@ -170,7 +170,7 @@ function AirConditioningSensor(props) {
                     <Grid item>
                         <strong>Raw:</strong> {sensorValue && JSON.stringify(sensorValue)}
                     </Grid>*/} 
-                    </Grid>
+                </Grid>
                 <Grid container justify="center" alignItems="center">
                     <form onSubmit={handleSubmit}>
                         <input hidden = 'True' type="number" value={props.sensorID} disabled/>
@@ -186,10 +186,10 @@ function AirConditioningSensor(props) {
                                 onChange={e => setNewValues({...newValues, "21": e.target.value })} />
                         <input hidden = 'True' type="number" value={newValues["22"]} min="0" max="1"
                                 onChange={e => setNewValues({...newValues, "22": e.target.value })} /> 
-                        <Grid item spacing={12}>
+                        <Grid item>
                         <p><strong>Temperatura:</strong></p>
                             <Button onClick={increaseTemp} variant="contained" color="primary" style={{'border-radius':'10%'}}><AddIcon/></Button>
-                            <strong>{newValues["4"] || 'unknow'} ºC </strong>
+                            <strong>&nbsp;{newValues["4"] || 'unknow'} ºC &nbsp;</strong>
                             <Button onClick={decreaseTemp} variant="contained" color="primary" style={{'border-radius':'10%'}}><RemoveIcon/></Button>
                         </Grid> 
                         <Grid item>
