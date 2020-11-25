@@ -13,7 +13,7 @@ import './HomePage.css';
 // Client global consumidor do MQTT
 var mqtt_client  = mqtt.connect({
   protocol: process.env.MQTT_PROTOCOL || 'mqtt',
-  host:process.env.MQTT_HOST || 'localhost',
+  host:process.env.MQTT_HOST || '127.0.0.1',
   port: process.env.MQTT_PORT || 9001
 })
 
@@ -42,12 +42,16 @@ function HomePage() {
           
               { clientConnectionState && 
               <h2>Status: Broker MQTT Conectado com sucesso!</h2> }                 
-
-              <Luminosity  client={mqtt_client}  />
-              <Temperature  client={mqtt_client} />
-              <Humidity  client={mqtt_client} />
-              <Movement  client={mqtt_client} />
-              <AirConditioning  client={mqtt_client} />
+              <Grid container direction="row" alignItems="center">
+                <Luminosity  client={mqtt_client}  />
+                <Temperature  client={mqtt_client} />
+                <Humidity  client={mqtt_client} />
+                <Movement  client={mqtt_client} />
+              </Grid>
+              <Grid container direction="row" alignItems="center">
+                <AirConditioning  client={mqtt_client} />
+              </Grid>
+              
           </main>
       </div>
   );

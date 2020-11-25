@@ -3,6 +3,8 @@ import React, {useState, useEffect} from 'react'
 import schema from '../../things_schema.json'
 import '../Style/style.css'
 import { Paper, withStyles, Grid, TextField, Button, FormControlLabel, Checkbox, Divider, Switch } from '@material-ui/core';
+import Move from '../../img/movimento.svg'
+import PowerSettingsNewIcon from '@material-ui/icons/PowerSettingsNew';
 
 function MovementSensor(props) {
 
@@ -30,38 +32,31 @@ function MovementSensor(props) {
     }
 
     return(
-        <div className="MovementSensor SensorCard">
-            <h3>Sensor {props.sensorID} at <span className="highlight">{sensorTopic}</span></h3>
-            <Paper elevation={3}>
-                    <h3>Sensor {props.sensorID} at <span className="highlight">{sensorTopic}</span></h3>
-                    <Grid container alignItems="center" justify="space-between">
-                        <Grid>
-                                <Grid item>
-                                    <p><strong>ID do Dispositivo:</strong> {sensorValue["0"] || 'unknow'} </p>
-                                </Grid>
-                                <Grid item>
-                                    <p><strong>Data:</strong> {sensorValue["s"] || 'unknow'} </p>
-                                </Grid>
-                                <Grid item>
-                                    <p><strong>Raw:</strong> {sensorValue && JSON.stringify(sensorValue)} </p>
-                                </Grid>
-                        </Grid>
+        <Grid item xs={4}>
+            <Paper elevation={3} >
+                <h3>Sensor {props.sensorID} at <span className="highlight">{sensorTopic}</span></h3>
+                <img src={Move} alt="move" style={{ height: 100, width: 100 }}/>
+                <Grid container alignItems="center">
+                    <Grid item xs={1}>
+                        <PowerSettingsNewIcon style={{ 'font-size' : '3.5rem' }}/>
                     </Grid>
+                    <Grid item xs={11}>
+                        <p><strong>Sensor de Movimento</strong></p>
+                        <p>{sensorValue["0"] ? 'Ligado' : 'Desligado' }</p>
+                    </Grid>
+                </Grid>
             </Paper>
-        </div>
+        </Grid>
     )
 }
 
 function Movement(props) {
     return (
-        <div className="Movement SensorSection" >
-            <h2>Sensores de Movimento</h2>
-            <Grid container direction="row" alignItems="center">
-                { schema.room.sensors.movement.map((sensorID, index) => 
-                    <MovementSensor sensorID={sensorID} client={props.client} key={index} /> )
-                }
-            </Grid>
-        </div>
+        <>
+            { schema.room.sensors.movement.map((sensorID, index) => 
+                <MovementSensor sensorID={sensorID} client={props.client} key={index} /> )
+            }
+        </>
     )
 }
 
