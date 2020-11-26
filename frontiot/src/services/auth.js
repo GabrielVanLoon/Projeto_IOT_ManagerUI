@@ -1,9 +1,5 @@
-export const TOKEN_KEY = "@front-Token";
-export const isAuthenticated = () => localStorage.getItem(TOKEN_KEY) !== null;
-export const getToken = () => localStorage.getItem(TOKEN_KEY);
-export const login = token => {
-  localStorage.setItem(TOKEN_KEY, token);
-};
-export const logout = () => {
-  localStorage.removeItem(TOKEN_KEY);
-};
+export const BROKER_TOKEN = "@broker-token"
+export const isAuthenticated = () => localStorage.getItem(BROKER_TOKEN) !== null
+export const getToken = () => localStorage.getItem(BROKER_TOKEN)
+export const login = token => localStorage.setItem(BROKER_TOKEN, token)
+export const logout = () => localStorage.removeItem(BROKER_TOKEN)
