@@ -1,12 +1,15 @@
 import React, { useState } from 'react';
 import './Header.css';
 
+import { Link as RouterLink } from 'react-router-dom';
+
 import AppBar   from '@material-ui/core/AppBar';
 import Toolbar  from '@material-ui/core/Toolbar';
 import Button   from '@material-ui/core/Button';
 import IconButton   from '@material-ui/core/IconButton';
 import MenuIcon     from '@material-ui/icons/Menu';
 import Typography   from '@material-ui/core/Typography';
+import Link from '@material-ui/core/Link';
 
 import Drawer from '@material-ui/core/Drawer';
 import List from '@material-ui/core/List';
@@ -15,11 +18,21 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 
-import InboxIcon from '@material-ui/icons/MoveToInbox';
-import MailIcon from '@material-ui/icons/Mail';
-
+import HomeIcon from '@material-ui/icons/Home';
+import DevicesOtherIcon from '@material-ui/icons/DevicesOther';
+import HistoryIcon from '@material-ui/icons/History';
+import InfoIcon from '@material-ui/icons/Info';
+import GitHubIcon from '@material-ui/icons/GitHub';
+import SchoolIcon from '@material-ui/icons/School';
 
 import { isAuthenticated }  from '../../services/auth'
+
+const menuItems = [
+    { text: "Home", link: "/",  icon: () => <HomeIcon/> },
+    { text: "My Devices", link: "/devices", icon: () => <DevicesOtherIcon/> },
+    { text: "Device's History", link: "/devices-history", icon: () => <HistoryIcon/> },
+    { text: "About the Project", link: "/about-the-project", icon: () => <InfoIcon/> },
+]
 
 function Header(props){ 
 
@@ -57,20 +70,27 @@ function Header(props){
             <Drawer className="main-menu" anchor="left" open={drawerVisible} onClose={toggleDrawer(false)}>
                 <List>
                     <ListItem>
-                        <strong>Internet no Mi</strong>
+                        <ListItemIcon><SchoolIcon/></ListItemIcon>
+                        <ListItemText primary="SSC0952 IoT Project" />
                     </ListItem>
                 </List>
 
                 <Divider/>
                 
                 <List>
-                    {['All mail', 'Trash', 'Spam'].map((text, index) => (
-                        <ListItem button key={text}>
-                            <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
-                            <ListItemText primary={text} />
+                    { menuItems.map((item, index) => (
+                        <ListItem button onClick={toggleDrawer(false)} key={item.text} component={RouterLink} to={item.link}>
+                            <ListItemIcon> { item.icon() }</ListItemIcon>
+                            <ListItemText primary={ item.text } />
                         </ListItem>
                     ))}
+
+                    <ListItem button component={Link}  href="https://github.com/GabrielVanLoon/projeto-iot-app" target="_blank" color="inherit">
+                        <ListItemIcon> <GitHubIcon/></ListItemIcon>
+                        <ListItemText primary="Github Repository" />
+                    </ListItem>
                 </List>
+
             </Drawer>
         </header>
     );

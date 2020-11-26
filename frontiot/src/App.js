@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { BrowserRouter as Router,Route, Switch, Redirect } from "react-router-dom"
+import { BrowserRouter as Router, Route, Switch, Redirect } from "react-router-dom"
 import './App.css'
 
 import Header from './components/Header/Header' 
@@ -34,14 +34,19 @@ class App extends Component {
   render() {
     return (
         <div className="App">
-          <Header/>
-          <main>
-            <Router>
-              <Route exact path="/" component={LoginPage} default/>
-              <PrivateRoute exact path="/home" component={HomePage} />
-              <Route exact path="/my-things" component={HomePage}/>
-            </Router>
-          </main>
+          <Router>
+
+            <Header/>
+            <main>
+              <Switch>
+                {/* <PrivateRoute path="/devices-bkp" component={HomePage} /> */ }
+                <Route path="/devices" component={HomePage}/>
+                <Route path="/" component={LoginPage} default/>
+
+              </Switch> 
+            </main>
+
+          </Router>
         </div>
     );
   }
