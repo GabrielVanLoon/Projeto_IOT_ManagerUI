@@ -52,9 +52,9 @@ function Header(props){
         history.push("/");
     }
 
-
     return(
         <header className="header">
+            
             <AppBar position="fixed">
                 <Toolbar>
                     <IconButton edge="start" color="inherit" aria-label="menu" >
@@ -70,10 +70,9 @@ function Header(props){
                             Logout
                         </Button>
                     }
-
                 </Toolbar>
             </AppBar>
-
+            
             <Drawer className="main-menu" anchor="left" open={drawerVisible} onClose={toggleDrawer(false)}>
                 <List>
                     <ListItem>
@@ -97,8 +96,8 @@ function Header(props){
                         <ListItemText primary="Github Repository" />
                     </ListItem>
                 </List>
-
             </Drawer>
+
         </header>
     );
 }

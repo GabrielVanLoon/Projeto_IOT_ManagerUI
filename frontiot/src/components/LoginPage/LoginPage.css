@@ -1,11 +1,48 @@
 .LoginPage {
-    /* background-color: rgb(152, 230, 255);
-    background-image: url('/src/img/background.jpg'); */
-    background: linear-gradient(-45deg,#0f91fc63 , #21cdf3e5);
+    /* background-color: rgb(152, 230, 255); */
+    /* background-image: url('/src/img/background.jpg'); */
+    /* background: linear-gradient(-45deg,#0f91fc63 , #21cdf3e5); */
+    background-color: transparent;
     min-height: 100%;
     min-height: 100vh;
     display: flex;
     background-size: cover;
     align-items: center;
     justify-content: center;
+}
+
+.LoginPage .videoShadow {
+    display: block;
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    min-width: 100%;
+    min-height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: -1;
+}
+
+.video-background {
+    background: #000;
+    position: fixed;
+    top: 0; right: 0; bottom: 0; left: 0;
+    z-index: -99;
+}
+
+.video-foreground,
+.video-background iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: -2;
+}
+
+@media (min-aspect-ratio: 16/9) {
+    .video-foreground { height: 300%; top: -100%; }
+}
+@media (max-aspect-ratio: 16/9) {
+    .video-foreground { width: 300%; left: -100%; }
 }
