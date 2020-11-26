@@ -1,10 +1,11 @@
-import React, { Component } from 'react';
-import { BrowserRouter as Router,Route, Switch, Redirect } from "react-router-dom";
-import './App.css';
+import React, { Component } from 'react'
+import { BrowserRouter as Router,Route, Switch, Redirect } from "react-router-dom"
+import './App.css'
 
-import HomePage from './components/HomePage/HomePage';
-import LoginPage from './components/LoginPage/LoginPage';
-import { isAuthenticated } from "./services/auth";
+import Header from './components/Header/Header' 
+import HomePage from './components/HomePage/HomePage'
+import LoginPage from './components/LoginPage/LoginPage'
+import { isAuthenticated } from "./services/auth"
 
 const Home = () => (
   <HomePage />
@@ -33,10 +34,14 @@ class App extends Component {
   render() {
     return (
         <div className="App">
-          <Router>
-            <Route exact path="/" component={LoginPage} default/>
-            <PrivateRoute exact path="/home" component={HomePage} />
-          </Router>
+          <Header/>
+          <main>
+            <Router>
+              <Route exact path="/" component={LoginPage} default/>
+              <PrivateRoute exact path="/home" component={HomePage} />
+              <Route exact path="/my-things" component={HomePage}/>
+            </Router>
+          </main>
         </div>
     );
   }

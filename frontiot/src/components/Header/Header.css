@@ -1,0 +1,8 @@
+.header h6 {
+    flex-grow: 1;
+    text-align: left;
+}
+
+.main-menu ul {
+    width: 250px;
+}
