@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import './Header.css';
 
-import { Link as RouterLink } from 'react-router-dom';
+import { Link as RouterLink, useHistory } from 'react-router-dom';
 
 import AppBar   from '@material-ui/core/AppBar';
 import Toolbar  from '@material-ui/core/Toolbar';
@@ -24,8 +24,9 @@ import HistoryIcon from '@material-ui/icons/History';
 import InfoIcon from '@material-ui/icons/Info';
 import GitHubIcon from '@material-ui/icons/GitHub';
 import SchoolIcon from '@material-ui/icons/School';
+import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 
-import { isAuthenticated }  from '../../services/auth'
+import { isAuthenticated, logout}  from '../../services/auth'
 
 const menuItems = [
     { text: "Home", link: "/",  icon: () => <HomeIcon/> },
@@ -36,6 +37,7 @@ const menuItems = [
 
 function Header(props){ 
 
+    const history = useHistory();
     const [ drawerVisible, setDrawerVisible ] = useState(false)
 
     const toggleDrawer = (open) => (event) => {
@@ -43,6 +45,13 @@ function Header(props){
           return;
         setDrawerVisible(open)
     };
+
+    const handleLogout = (event) => {
+        event.preventDefault()
+        logout()
+        history.push("/");
+    }
+
 
     return(
         <header className="header">
@@ -53,15 +62,13 @@ function Header(props){
                     </IconButton>
                     
                     <Typography variant="h6">
-                        <strong>IOT Application</strong>
+                        <strong>SSC0952 IoT Web Project</strong>
                     </Typography>
 
-                    { !isAuthenticated() && 
-                         <Button color="inherit">Login</Button>
-                    }
-
                     { isAuthenticated() && 
-                        <Button color="inherit">Logout</Button>
+                        <Button color="inherit" endIcon={<ExitToAppIcon/>} onClick={handleLogout}>
+                            Logout
+                        </Button>
                     }
 
                 </Toolbar>
