@@ -13,8 +13,7 @@ import { login } from "../../services/auth";
 
 const styles = theme => ({
     cardConfiguration: {
-        minWidth: 300,
-        padding: theme.spacing.unit,
+        maxWidth: 300,
     },
     textConfiguration: {
         flexGrow: 1,

@@ -1,8 +1,8 @@
 import React, {useState, useEffect} from 'react'
+import Temp   from '../../img/heat.svg'
 import schema from '../../things_schema.json'
-import '../Style/style.css'
-import { Paper, withStyles, Grid, TextField, Button, FormControlLabel, Checkbox, Divider, Switch } from '@material-ui/core';
-import Temp from '../../img/heat.svg'
+
+import { Paper, Grid } from '@material-ui/core';
 import PowerSettingsNewIcon from '@material-ui/icons/PowerSettingsNew';
 
 const styles = theme => ({
@@ -42,44 +42,37 @@ function TemperatureSensor(props) {
     }
 
     return(        
-        <Grid item xs={4}>
-        <Paper elevation={3} >
-                    <h3>Sensor {props.sensorID} at <span className="highlight">{sensorTopic}</span></h3>
-                    <img src={Temp} alt="temp" style={{ height: 100, width: 100 }}/>
-                    <Grid container alignItems="center">
-                        <Grid item xs={1}>
-                            <PowerSettingsNewIcon style={{ 'font-size' : '3.5rem' }}/>
-                        </Grid>
-                        <Grid item xs={11}>
-                            <p><strong>Sensor de Temperatura</strong></p>
-                            <p>{sensorValue["0"] ? 'Ligado' : 'Desligado' }</p>
-                        </Grid>
-                        <Grid item>
-                        <p><strong>Temperatura:</strong> {sensorValue["temp"] || 'unknow'} ºC </p>
-                        </Grid>
-                        {/* <form onSubmit={handleSubmit}>
-                            <input hidden = 'True' type="number" value={props.sensorID} disabled/>
-                            <Grid item>
-                                <TextField id="standard-basic" label="Estado" type="number" value={newValues["temp"]} onChange={e => setNewValues({...newValues, "temp": e.target.value })}/>
-                            </Grid>
-                            <input hidden = 'True' value={newValues["s"]} 
-                                onChange={e => setNewValues({...newValues, "s": e.target.value })} />
-                            <Grid item>
-                                <p><button type="submit">Publicar Atualizações</button></p>
-                            </Grid>
-                        </form> */}
+        <Grid item xs={12} md={6} lg={4}>
+            <Paper elevation={3} >
+                <h3>Sensor {props.sensorID} at <span className="highlight">{sensorTopic}</span></h3>
+                <img src={Temp} alt="temp" style={{ height: 100, width: 100 }}/>
+                <Grid container alignItems="center">
+                    
+                    <Grid item xs={1}>
+                        <PowerSettingsNewIcon style={{ 'font-size' : '3.5rem' }}/>
                     </Grid>
+
+                    <Grid item xs={11}>
+                        <p><strong>Sensor de Temperatura</strong></p>
+                        <p>{sensorValue["0"] ? 'Ligado' : 'Desligado' }</p>
+                    </Grid>
+
+                    <Grid item>
+                    <p><strong>Temperatura:</strong> {sensorValue["temp"] || 'unknow'} ºC </p>
+                    </Grid>
+                    
+                </Grid>
             </Paper>
-            </Grid>
+        </Grid>
     )
-    }
+}
 
 function Temperature(props) {
     return (
         <>
-        { schema.room.sensors.temperature.map((sensorID, index) => 
-                    <TemperatureSensor sensorID={sensorID} client={props.client} key={index} /> )
-                }
+            { schema.room.sensors.temperature.map((sensorID, index) => 
+                <TemperatureSensor sensorID={sensorID} client={props.client} key={index} /> )
+            }
         </>    
     )
 }

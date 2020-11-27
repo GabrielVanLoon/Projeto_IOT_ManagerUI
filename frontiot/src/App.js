@@ -20,7 +20,6 @@ const PrivateRoute = ({ component: Component, ...rest }) => (
   />
 );
 
-
 class App extends Component {
   render() {
     return (
@@ -30,10 +29,10 @@ class App extends Component {
             <Header/>
             <main>
               <Switch>
-                {/* <PrivateRoute path="/devices-bkp" component={DevicesPage} /> */ }
+                <PrivateRoute path="/devices-bkp" component={DevicesPage} />
                 <Route path="/devices" component={DevicesPage}/>
                 <Route path="/" component={LoginPage} default/>
-              </Switch> 
+              </Switch>
             </main>
 
           </Router>
