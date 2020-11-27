@@ -11,6 +11,7 @@ import Temperature from '../Temperature/Temperature'
 import { Paper, withStyles, Grid, Typography, Container } from '@material-ui/core';
 import CircularProgress from '@material-ui/core/CircularProgress';
 
+
 // Client global consumidor do MQTT
 var mqtt_client = null;
 
@@ -19,9 +20,12 @@ function DevicesPage() {
   const [clientConnectionState, setConnectionState] = useState(false)
 
   useEffect( () => {
+      if(mqtt_client != null)
+        mqtt_client.end()
+      
       mqtt_client = mqtt.connect({
         protocol: process.env.MQTT_PROTOCOL || 'mqtt',
-        host:process.env.MQTT_HOST || '127.0.0.1',
+        host:process.env.MQTT_HOST || '192.168.0.12' || '127.0.0.1',
         port: process.env.MQTT_PORT || 9001
       })
 
