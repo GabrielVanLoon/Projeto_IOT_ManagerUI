@@ -12,17 +12,13 @@ class LoginPage extends Component {
     return (
       <div className="LoginPage">
 
-        <div class="video-background">
+        {/* <div class="video-background">
             <div class="video-foreground">
-          {/* <iframe src="https://www.youtube.com/embed/i6sSc1BXVfU?controls=0&showinfo=0&rel=0&autoplay=1&loop=1&playlist=i6sSc1BXVfU" 
-            frameborder="0" 
-            allowfullscreen/> */}
-          <iframe src="https://www.youtube.com/embed/i6sSc1BXVfU?controls=0&autoplay=1&loop=1" 
-            frameborder="0" 
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            <iframe src="https://www.youtube.com/embed/i6sSc1BXVfU?controls=0&showinfo=0&rel=0&autoplay=1&loop=1&playlist=i6sSc1BXVfU"
+              frameborder="0" 
+              allowfullscreen/>
         </div></div>
-
-        <span className="videoShadow">&nbsp;</span>
+        <span className="videoShadow">&nbsp;</span> */}
 
         <LoginForm />
 
