@@ -71,6 +71,9 @@ function Header(props){
                     }
                 </Toolbar>
             </AppBar>
+
+            {/* Don't exclude this empty toolbar because it fix the position */}
+            <Toolbar />
             
             <Drawer className="main-menu" anchor="left" open={drawerVisible} onClose={toggleDrawer(false)}>
                 <List>

@@ -4,6 +4,11 @@
   width: 100%;
 }
 
+.App main > * {
+  padding-top: 24px;
+  padding-bottom: 24px;
+}
+
 /* .MuiGrid-container {
     width: 100%;
     display: flex;

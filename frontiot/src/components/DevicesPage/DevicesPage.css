@@ -21,3 +21,11 @@
     filter: drop-shadow( 3px 3px 2px rgba(15, 240, 29, 0.5));
     color: #00e676;
 }
+
+.DevicesPage .CustomPaper { 
+    padding-top: 15px;
+}
+
+.SensorIcon {
+    max-width: 140px;
+}

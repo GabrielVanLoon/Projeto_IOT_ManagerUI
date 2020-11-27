@@ -3,10 +3,10 @@ import './DevicesPage.css'
 import mqtt from 'mqtt'
 
 // import AirConditioning from '../AirConditioning/AirConditioning'
-// import Luminosity from '../Luminosity/Luminosity'
+import Luminosity from '../Luminosity/Luminosity'
 import Temperature from '../Temperature/Temperature'
-// import Humidity from '../Humidity/Humidity'
-// import Movement from '../Movement/Movement'
+import Humidity from '../Humidity/Humidity'
+import Movement from '../Movement/Movement'
 
 import { Paper, withStyles, Grid, Typography, Container } from '@material-ui/core';
 import CircularProgress from '@material-ui/core/CircularProgress';
@@ -54,18 +54,18 @@ function DevicesPage() {
         { mqtt_client && clientConnectionState && 
           <Grid container spacing={3} justify="center" alignItems="center">
             <Temperature  client={mqtt_client} />
+            <Humidity  client={mqtt_client} />
+            <Luminosity  client={mqtt_client}  />
+            <Movement  client={mqtt_client} />
           </Grid>
         }
       </Container>
 
       {/* <Grid container direction="row" alignItems="center">
-        <Luminosity  client={mqtt_client}  />
-        <Temperature  client={mqtt_client} />
-        <Humidity  client={mqtt_client} />
-        <Movement  client={mqtt_client} />
+        <AirConditioning  client={mqtt_client} />
       </Grid>
       <Grid container direction="row" alignItems="center">
-        <AirConditioning  client={mqtt_client} />
+       
       </Grid> */}
     </div>
   );

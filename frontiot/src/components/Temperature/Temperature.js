@@ -1,10 +1,9 @@
 import React, {useState, useEffect} from 'react'
-import Temp   from '../../img/heat.svg'
+import SensorIcon from '../../img/heat.svg'
 import schema from '../../things_schema.json'
 
 import { Paper, Grid, Typography, Dialog, DialogTitle, DialogContent, DialogActions, Button, IconButton } from '@material-ui/core';
 import { Table, TableBody, TableRow, TableCell, TableContainer} from '@material-ui/core';
-import PowerSettingsNewIcon from '@material-ui/icons/PowerSettingsNew';
 import WifiOffIcon from '@material-ui/icons/WifiOff';
 import WifiIcon from '@material-ui/icons/Wifi';
 
@@ -29,14 +28,12 @@ function TemperatureSensor(props) {
     const closeDialog = () => setOpen(false);
 
     return(        
-        <Grid item xs={6} md={6} lg={4}>
-            <Paper className="CustomPaper" elevation={3} style={{ paddingTop: 10 }}>
-                {/* <h3>Sensor {props.sensorID} at <span className="highlight">{sensorTopic}</span></h3> */}
-                
+        <Grid item xs={12} sm={6} md={6} lg={4}>
+            <Paper className="CustomPaper" elevation={3}>
                 <Grid container spacing={2} alignItems="center">
                     
                     <Grid item xs={12}>
-                        <img src={Temp} alt="temp" style={{ maxWidth: 200 }}/>
+                        <img className="SensorIcon" src={SensorIcon} alt="temp"/>
                     </Grid>
 
                     <Grid item onClick={openDialog}>
