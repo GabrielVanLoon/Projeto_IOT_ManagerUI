@@ -3,18 +3,9 @@ import { BrowserRouter as Router, Route, Switch, Redirect } from "react-router-d
 import './App.css'
 
 import Header from './components/Header/Header' 
-import HomePage from './components/HomePage/HomePage'
+import DevicesPage from './components/DevicesPage/DevicesPage'
 import LoginPage from './components/LoginPage/LoginPage'
 import { isAuthenticated } from "./services/auth"
-
-const Home = () => (
-  <HomePage />
-);
-
-const Login = () => (
-  <LoginPage />
-);
-
 
 const PrivateRoute = ({ component: Component, ...rest }) => (
   <Route
@@ -39,10 +30,9 @@ class App extends Component {
             <Header/>
             <main>
               <Switch>
-                {/* <PrivateRoute path="/devices-bkp" component={HomePage} /> */ }
-                <Route path="/devices" component={HomePage}/>
+                {/* <PrivateRoute path="/devices-bkp" component={DevicesPage} /> */ }
+                <Route path="/devices" component={DevicesPage}/>
                 <Route path="/" component={LoginPage} default/>
-
               </Switch> 
             </main>
 
