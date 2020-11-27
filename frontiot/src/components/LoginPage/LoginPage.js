@@ -3,14 +3,11 @@ import './LoginPage.css';
 
 import LoginForm from './LoginForm';
 
-// Opções de background: 
-// - i6sSc1BXVfU
-// - hM7RR3ZzvCM
-
 class LoginPage extends Component {
   render() {
     return (
       <div className="LoginPage">
+          <LoginForm />
 
         {/* <div class="video-background">
             <div class="video-foreground">
@@ -19,9 +16,6 @@ class LoginPage extends Component {
               allowfullscreen/>
         </div></div>
         <span className="videoShadow">&nbsp;</span> */}
-
-        <LoginForm />
-
       </div>
     );
   }

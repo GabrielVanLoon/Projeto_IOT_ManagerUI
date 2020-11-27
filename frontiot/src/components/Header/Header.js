@@ -54,11 +54,10 @@ function Header(props){
 
     return(
         <header className="header">
-            
-            <AppBar position="fixed">
+            <AppBar>
                 <Toolbar>
-                    <IconButton edge="start" color="inherit" aria-label="menu" >
-                        <MenuIcon onClick={toggleDrawer(true)} />
+                    <IconButton edge="start" color="inherit" aria-label="menu" onClick={toggleDrawer(true)} >
+                        <MenuIcon />
                     </IconButton>
                     
                     <Typography variant="h6">

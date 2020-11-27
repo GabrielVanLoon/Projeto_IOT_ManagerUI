@@ -1,21 +1,23 @@
 import React from 'react';
 import './LoginForm.css'
 
-import { Redirect } from "react-router-dom"
-import { Paper, withStyles, Grid, TextField, Button, FormControlLabel, Checkbox } from '@material-ui/core';
+import { Link as RouterLink, Redirect } from "react-router-dom"
+
+import { Link, Paper, withStyles, Grid, TextField, Button, FormControlLabel, Checkbox, Typography } from '@material-ui/core';
 import { Face, LockOutlined } from '@material-ui/icons'
 import Alert from '@material-ui/lab/Alert';
+
 
 import api       from "../../services/api";
 import { login } from "../../services/auth";
 
-
 const styles = theme => ({
-    margin: {
-        margin: theme.spacing.unit * 2,
+    cardConfiguration: {
+        minWidth: 300,
+        padding: theme.spacing.unit,
     },
-    padding: {
-        padding: theme.spacing.unit
+    textConfiguration: {
+        flexGrow: 1,
     }
 });
 
@@ -50,7 +52,7 @@ class LoginForm extends React.Component {
     render() {
         const { classes } = this.props;
         return (
-            <Paper className={classes.padding}>
+            <Paper className={classes.cardConfiguration}>
 
                 { this.state.redirect && 
                     <Redirect to="/home" />
@@ -60,40 +62,59 @@ class LoginForm extends React.Component {
                     <Alert severity="error">{this.state.error}</Alert>
                 }
 
-                <form className={classes.container} onSubmit={this.handleSubmit} >
-                    <Grid container alignItems="flex-end" justify="space-between">
-                        <Grid item xs={1}>
-                            <Face />
-                        </Grid>
-                        <Grid item xs={10}>
-                            <TextField id="username" label="Username" fullWidth autoFocus required onChange={e => this.setState({ username: e.target.value })} />
+                <form onSubmit={this.handleSubmit} >
+
+                    <Grid container spacing={0}>
+                        <Grid item xs={12}>
+                            <Typography variant="h5" color="primary" align="center">
+                                SIGN IN
+                            </Typography>
                         </Grid>
                     </Grid>
 
-                    <Grid container alignItems="flex-end" justify="space-between">
-                        <Grid item  item xs={1}>
+                    <Grid container spacing={1} alignItems="flex-end">
+                        <Grid item>
+                            <Face/>
+                        </Grid>
+                        <Grid item className={classes.textConfiguration}>
+                            <TextField id="username" label="Username" fullWidth autoFocus 
+                                required onChange={e => this.setState({ username: e.target.value })} />
+                        </Grid>
+                    </Grid>
+
+                    <Grid container spacing={1} alignItems="flex-end">
+                        <Grid item>
                             <LockOutlined />
                         </Grid>
-                        <Grid item xs={10}>
-                            <TextField id="password" label="Password" type="password" fullWidth required onChange={e => this.setState({ password: e.target.value })} />
+                        <Grid item className={classes.textConfiguration}>
+                            <TextField id="password" label="Password" type="password" fullWidth 
+                                required onChange={e => this.setState({ password: e.target.value })} />
+                        </Grid>
+                    </Grid>
+                    
+                    <Grid container spacing={1} justify="center" >
+                        <Grid item xs={12}>
+                            <Button size="large" fullWidth variant="outlined" color="primary" type="submit"  
+                                style={{ textTransform: "none" }}>Login</Button>
+                        </Grid>
+                        <Grid item xs={12}>
+                            <Typography align="center">
+                                <Link component={RouterLink} to="/devices">Forgot the password? Click Here!</Link>
+                            </Typography>
                         </Grid>
                     </Grid>
 
-                    <Grid container alignItems="center" justify="space-between">
+                    {/* <Grid container spacing={1} direction="row">
+                        <Grid item xs={12}>
+                            <Button disableFocusRipple disableRipple style={{ textTransform: "none" }} variant="text" color="primary">Forgot password?</Button>
+                        </Grid>
                         <Grid item xs={12}>
                             <FormControlLabel control={
                                 <Checkbox color="primary" />
                             } label="Remember me" />
                         </Grid>
-                        <Grid item xs={12}>
-                            <Button disableFocusRipple disableRipple style={{ textTransform: "none" }} variant="text" color="primary">Forgot password ?</Button>
-                        </Grid>
-                    </Grid>
-                    
-                    <Grid container justify="center">
-                        <Button type= "submit" variant="outlined" color="primary" style={{ textTransform: "none" }}>Login</Button>
-                        {/* <Button type= "submit" variant="contained" color="primary">Login</Button> */}
-                    </Grid>
+                    </Grid> */}
+                
                 </form>
             </Paper>
         );
