@@ -2,7 +2,7 @@ import React, { Component , useState, useEffect} from 'react'
 import './DevicesPage.css'
 import mqtt from 'mqtt'
 
-// import AirConditioning from '../AirConditioning/AirConditioning'
+import AirConditioning from '../AirConditioning/AirConditioning'
 import Luminosity from '../Luminosity/Luminosity'
 import Temperature from '../Temperature/Temperature'
 import Humidity from '../Humidity/Humidity'
@@ -53,6 +53,7 @@ function DevicesPage() {
 
         { mqtt_client && clientConnectionState && 
           <Grid container spacing={3} justify="center" alignItems="center">
+            <AirConditioning  client={mqtt_client} />
             <Temperature  client={mqtt_client} />
             <Humidity  client={mqtt_client} />
             <Luminosity  client={mqtt_client}  />
@@ -61,12 +62,6 @@ function DevicesPage() {
         }
       </Container>
 
-      {/* <Grid container direction="row" alignItems="center">
-        <AirConditioning  client={mqtt_client} />
-      </Grid>
-      <Grid container direction="row" alignItems="center">
-       
-      </Grid> */}
     </div>
   );
 }
