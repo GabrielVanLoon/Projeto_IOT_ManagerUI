@@ -6,3 +6,15 @@
     width: 100%;
     text-align: center;
   } */
+
+.LoginPage .CustomPaper {
+  max-width: 300px;
+}
+
+.LoginPage .CustomPaper form > *{
+  margin-top: 26px;
+}
+
+.LoginPage .CustomPaper form > *:first-child {
+  margin-top: 0px;
+}

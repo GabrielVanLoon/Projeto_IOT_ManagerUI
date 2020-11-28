@@ -12,9 +12,6 @@ import api       from "../../services/api";
 import { login } from "../../services/auth";
 
 const styles = theme => ({
-    cardConfiguration: {
-        maxWidth: 300,
-    },
     textConfiguration: {
         flexGrow: 1,
     }
@@ -51,17 +48,17 @@ class LoginForm extends React.Component {
     render() {
         const { classes } = this.props;
         return (
-            <Paper className={classes.cardConfiguration}>
-
-                { this.state.redirect && 
-                    <Redirect to="/home" />
-                }
-                
-                { this.state.error && 
-                    <Alert severity="error">{this.state.error}</Alert>
-                }
+            <Paper className="CustomPaper">
 
                 <form onSubmit={this.handleSubmit} >
+                    
+                    { this.state.redirect && 
+                        <Redirect to="/home" />
+                    }
+                    
+                    { this.state.error && 
+                        <Alert severity="error">{this.state.error}</Alert>
+                    }
 
                     <Grid container spacing={0}>
                         <Grid item xs={12}>
