@@ -45,7 +45,7 @@ function AirConditioningSensor(props) {
                         </IconButton>
                     </Grid>
 
-                    <Grid item style={{ flexGrow: 1, textAlign: "left" }} minWid>
+                    <Grid item style={{ flexGrow: 1, textAlign: "left" }}>
                         <Typography variant="h6">
                             <strong>Air Condit. Sensor {props.sensorID}</strong>
                         </Typography>

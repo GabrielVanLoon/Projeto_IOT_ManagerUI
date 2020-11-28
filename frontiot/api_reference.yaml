@@ -40,26 +40,14 @@ endpoints:
       code: 200
     error:
       code: 400
-  
-  /temperature-avg:
-    method: GET
-    description:  Recebe a variação da temperatura média da sala considerando as últimas horas
-    params:
-      APIKEY: 32 Bytes Hash obrigatória
-      period: Int (quantidade de horas)
-    success:
-      code: 200
-      response_json:
-        avg: Double 
-    error:
-      code: 400
 
   /sensor-history:
     method: GET
     description:  Recebe todas as informações salvas de um dado sensor nas últimas @period horas.
+                  ou a média de todos os sensores do mesmo tipo.
     params:
       APIKEY: 32 Bytes Hash obrigatória
-      topic:  String (Ex 1/luz/27)
+      topic:  String (Ex1 1/temp/27 -> Sensor 27) (Ex2 1/temp/avg -> Media de todas Temperaturas)
       period: Int (quantidade de horas)
     success:
       code: 200
@@ -68,3 +56,18 @@ endpoints:
         results:  Array de Strings -> Mensagens Salvas do Mongo
     error:
       code: 400
+
+
+  # /temperature-avg:
+  #   deprecated: true
+  #   method: GET
+  #   description:  Recebe a variação da temperatura média da sala considerando as últimas horas
+  #   params:
+  #     APIKEY: 32 Bytes Hash obrigatória
+  #     period: Int (quantidade de horas)
+  #   success:
+  #     code: 200
+  #     response_json:
+  #       avg: Double 
+  #   error:
+  #     code: 400

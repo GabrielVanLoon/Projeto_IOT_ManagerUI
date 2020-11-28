@@ -94,7 +94,7 @@ function Header(props){
                     ))}
 
                     <ListItem button component={Link}  href="https://github.com/GabrielVanLoon/projeto-iot-app" target="_blank" color="inherit">
-                        <ListItemIcon> <GitHubIcon/></ListItemIcon>
+                        <ListItemIcon><GitHubIcon/></ListItemIcon>
                         <ListItemText primary="Github Repository" />
                     </ListItem>
                 </List>

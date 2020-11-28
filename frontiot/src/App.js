@@ -4,6 +4,7 @@ import './App.css'
 
 import Header from './components/Header/Header' 
 import DevicesPage from './components/DevicesPage/DevicesPage'
+import HistoryPage from './components/HistoryPage/HistoryPage'
 import LoginPage from './components/LoginPage/LoginPage'
 import { isAuthenticated } from "./services/auth"
 
@@ -31,6 +32,7 @@ class App extends Component {
               <Switch>
                 <PrivateRoute path="/devices-bkp" component={DevicesPage} />
                 <Route path="/devices" component={DevicesPage}/>
+                <Route path="/devices-history" component={HistoryPage}/>
                 <Route path="/" component={LoginPage} default/>
               </Switch>
             </main>
