@@ -43,7 +43,7 @@ function DevicesPage() {
       <Container>
         { !clientConnectionState &&
           <Grid container direction="column" alignItems="center" alignContent="center">
-              <Paper>
+              <Paper className="CustomPaper">
                 <Typography variant="h4" align="center">
                   Connecting Devices <br/><br/><CircularProgress />
                 </Typography>

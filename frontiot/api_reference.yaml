@@ -1,0 +1,70 @@
+endpoints:
+  /air-information:
+    method: GET
+    description: Recebe os parâmetros atuais do ar (min, max, target e modo)
+    params:
+      APIKEY: 32 Bytes Hash obrigatória
+    success:
+      code: 200
+      response_json:
+        max:      int [17,23]
+        min:      int [16,22]
+        target:   int [16,23]
+        mode:       Boolean (true = automatico, false = manual)
+        air-status: Boolean (true = ligado, false = desligado)
+    error:
+      code: 400
+
+  /change-mode:
+    method: POST
+    description: Alterna o ar-condicionado entre o modo automatico e manual
+    params:
+      APIKEY: 32 Bytes Hash obrigatória
+      mode:   Boolean (true = automatico, false = manual)
+    success:
+      code: 200
+    error:
+      code: 400
+
+  /set-temperature:
+    method: POST
+    description:  Se automático recebe a temperatura min, maxima e ideal (target), senão 
+                  recebe a temperatura ideal e se pretende ligar ou desligar o ar condicionado.
+    params:
+      APIKEY:   32 Bytes Hash obrigatória
+      max:      int [17,23]
+      min:      int [16,22]
+      target:   int [16,23]
+      air-status: Boolean (true = ligado, false = desligado)
+    success:
+      code: 200
+    error:
+      code: 400
+  
+  /temperature-avg:
+    method: GET
+    description:  Recebe a variação da temperatura média da sala considerando as últimas horas
+    params:
+      APIKEY: 32 Bytes Hash obrigatória
+      period: Int (quantidade de horas)
+    success:
+      code: 200
+      response_json:
+        avg: Double 
+    error:
+      code: 400
+
+  /sensor-history:
+    method: GET
+    description:  Recebe todas as informações salvas de um dado sensor nas últimas @period horas.
+    params:
+      APIKEY: 32 Bytes Hash obrigatória
+      topic:  String (Ex 1/luz/27)
+      period: Int (quantidade de horas)
+    success:
+      code: 200
+      response_json:
+        size:     Int (quantidade de resultados)
+        results:  Array de Strings -> Mensagens Salvas do Mongo
+    error:
+      code: 400
