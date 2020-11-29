@@ -2,11 +2,13 @@ import React, {useState, useEffect} from 'react'
 import SensorIcon from '../../img/ar-condicionado.svg'
 import schema from '../../things_schema.json'
 
+import AirController from './AirController'
+
 import { Paper, Grid, Typography, Dialog, DialogTitle, DialogContent, DialogActions, Button, IconButton } from '@material-ui/core';
 import { Table, TableBody, TableRow, TableCell, TableContainer} from '@material-ui/core';
 import WifiOffIcon from '@material-ui/icons/WifiOff';
 import WifiIcon from '@material-ui/icons/Wifi';
-
+// import SettingsRemoteIcon from '@material-ui/icons/SettingsRemote';
 
 function AirConditioningSensor(props) {
 
@@ -42,6 +44,7 @@ function AirConditioningSensor(props) {
                         <IconButton>
                         { !sensorValue["s"] && <WifiOffIcon className="StatusIcon" /> }
                         { sensorValue["s"] && <WifiIcon className="StatusIcon Subscribed" /> }
+                        {/* { !sensorValue["s"] && <SettingsRemoteIcon className="StatusIcon Subscribed" /> } */}
                         </IconButton>
                     </Grid>
 
@@ -55,46 +58,53 @@ function AirConditioningSensor(props) {
                 </Grid>
             </Paper>
 
-            <Dialog open={open} keepMounted onClose={closeDialog} fullWidth maxWidth="xs">
+            <Dialog open={open} keepMounted onClose={closeDialog} fullWidth maxWidth="md">
                 <DialogTitle>
-                    <Typography align="left" variant="h6"><strong>AirConditioning Sensor at {sensorSubscribeTopic}</strong></Typography>
+                    <Typography align="left" variant="h6"><strong>Air Conditioning Sensor at {sensorSubscribeTopic}</strong></Typography>
                 </DialogTitle>
                 
                 <DialogContent style={{ padding: 0 }} dividers>
-                    <TableContainer>
-                        <Table>
-                        <TableBody>
-                            <TableRow>
-                                <TableCell><strong>Status:</strong></TableCell>
-                                <TableCell>{sensorValue["s"] ? 'Device Connected' : 'No information available'}</TableCell>
-                            </TableRow>
-                            <TableRow >
-                                <TableCell><strong>Max Temperature:</strong></TableCell>
-                                <TableCell>{sensorValue["1"] || "unknown"} ºC</TableCell>
-                            </TableRow>
-                            <TableRow >
-                                <TableCell><strong>Target Temperature:</strong></TableCell>
-                                <TableCell>{sensorValue["4"] || "unknown"} ºC</TableCell>
-                            </TableRow>
-                            <TableRow >
-                                <TableCell><strong>Min Temperature:</strong></TableCell>
-                                <TableCell>{sensorValue["2"] || "unknown"} ºC</TableCell>
-                            </TableRow>
-                            <TableRow >
-                                <TableCell><strong>Air Status:</strong></TableCell>
-                                <TableCell>{sensorValue["21"]? "ON" : "OFF"}</TableCell>
-                            </TableRow>
-                            <TableRow >
-                                <TableCell><strong>Last Command ID:</strong></TableCell>
-                                <TableCell>{sensorValue["23"] || "unknown"}</TableCell>
-                            </TableRow>
-                            <TableRow>
-                                <TableCell><strong>Publish Date:</strong></TableCell>
-                                <TableCell>{sensorValue["s"] || "unknown"}</TableCell>
-                            </TableRow>
-                        </TableBody>
-                        </Table>
-                    </TableContainer>
+                    <Grid container spacing={0}>
+                        <Grid item xs={6}>
+                            <Table>
+                            <TableBody>
+                                <TableRow>
+                                    <TableCell><strong>Status:</strong></TableCell>
+                                    <TableCell>{sensorValue["s"] ? 'Device Connected' : 'No information available'}</TableCell>
+                                </TableRow>
+                                <TableRow >
+                                    <TableCell><strong>Max Temperature:</strong></TableCell>
+                                    <TableCell>{sensorValue["1"] || "unknown"} ºC</TableCell>
+                                </TableRow>
+                                <TableRow >
+                                    <TableCell><strong>Target Temperature:</strong></TableCell>
+                                    <TableCell>{sensorValue["4"] || "unknown"} ºC</TableCell>
+                                </TableRow>
+                                <TableRow >
+                                    <TableCell><strong>Min Temperature:</strong></TableCell>
+                                    <TableCell>{sensorValue["2"] || "unknown"} ºC</TableCell>
+                                </TableRow>
+                                <TableRow >
+                                    <TableCell><strong>Air Status:</strong></TableCell>
+                                    <TableCell>{sensorValue["21"]? "ON" : "OFF"}</TableCell>
+                                </TableRow>
+                                <TableRow >
+                                    <TableCell><strong>Last Command ID:</strong></TableCell>
+                                    <TableCell>{sensorValue["23"] || "unknown"}</TableCell>
+                                </TableRow>
+                                <TableRow>
+                                    <TableCell><strong>Publish Date:</strong></TableCell>
+                                    <TableCell>{sensorValue["s"] || "unknown"}</TableCell>
+                                </TableRow>
+                            </TableBody>
+                            </Table>
+                        </Grid>
+
+                        <Grid item xs={6}>
+                            <AirController/>
+                        </Grid>
+
+                    </Grid>
                 </DialogContent>
 
                 <DialogActions dividers>
