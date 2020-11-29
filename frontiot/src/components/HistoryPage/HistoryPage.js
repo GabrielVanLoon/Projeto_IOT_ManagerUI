@@ -7,6 +7,7 @@ import microAPI from '../../services/microsservice'
 
 import { Container, Grid, Paper, Typography } from '@material-ui/core';
 import { List, ListItem, ListItemIcon, ListItemText, Divider} from '@material-ui/core';
+import Alert from '@material-ui/lab/Alert';
 
 import TemperatureIcon from '../../img/heat.svg'
 import HumidityIcon from '../../img/gotas-de-agua.svg'
@@ -20,6 +21,7 @@ function HistoryPage(props){
 
     const [currentTopic, setcurrentTopic] = useState(null)
     const [dataset, setDataset] = useState(null)
+    const [errorMessage, setErrorMessage] = useState(null)
 
     useEffect(() => {
         if(chartContainer.current) {
@@ -43,7 +45,33 @@ function HistoryPage(props){
     }
 
     useEffect(() => {
-        // @TODO
+        if(!currentTopic)
+            return
+        
+        microAPI.get(`sensor-history?APIKEY=${123}&topic=${currentTopic}&period=${24}`)
+        .then(response => {
+            const microsserviceData = response.data
+            
+            let tempDataset = { 
+                title: `Sensor Values at Topic ${currentTopic}`,
+                data: [], 
+                labels: []
+            }
+
+            microsserviceData.results.map((item, index) => {
+                if(currentTopic.includes('temp')) 
+                    tempDataset.data.push(item.temp)
+                else if(currentTopic.includes('umid')) 
+                    tempDataset.data.push(item.umid)
+                tempDataset.labels.push(item.s)
+            })
+
+            setDataset(tempDataset)
+            setErrorMessage(null)
+        }).catch(err => {
+            setErrorMessage("Error on reach data, Try Again Later!")
+        })
+        
     }, [currentTopic])
 
     return (
@@ -77,8 +105,12 @@ function HistoryPage(props){
                     </Grid>
 
                     <Grid item xs={12} md={8} ref={chartContainer}>
-                        { chartContainer.current && currentTopic && /*dataset && */
-                            <SensorChart width={chartWidth} height={chartHeight} />
+                        { chartContainer.current && currentTopic && dataset &&
+                            <SensorChart width={chartWidth} height={chartHeight} dataset={dataset}/>
+                        }
+
+                        { errorMessage && 
+                            <Alert severity="error">{errorMessage}</Alert>
                         }
                     </Grid>
                 </Grid>

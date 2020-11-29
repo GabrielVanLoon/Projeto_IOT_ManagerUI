@@ -18,6 +18,10 @@ const mqttAuthInformation = {
     password:   process.env.BROKER_PASSWORD || "mqtt_password_here"
 }
 
+function getRand(min, max) {
+    return Math.random() * (max - min) + min;
+}
+
 app.use(express.json())
 
 // @TODO: Please remove this line in production
@@ -67,12 +71,12 @@ app.get('/air-information',(req, res) => {
 app.post('/change-mode',(req, res) => {
     console.log("Change Mod Simulated at ", Date())
     
-    if(req.body.mode === undefined){
+    if(req.query.mode === undefined){
         res.status(400)
         res.json({error:'Invalid Request. Username and password required.'})
     
     } else {
-        airSimulation.mode = req.body.mode
+        airSimulation.mode = req.query.mode
         res.json()
     }
 })
@@ -80,52 +84,51 @@ app.post('/change-mode',(req, res) => {
 app.post('/set-temperature',(req, res) => {
     console.log("Change Mod Simulated at ", Date())
     
-    if(req.body.min !== undefined)
-        airSimulation.min = req.body.min
-    if(req.body.max !== undefined)
-        airSimulation.max = req.body.max
-    if(req.body.target !== undefined)
-        airSimulation.target = req.body.target
-    if(req.body.airStatus !== undefined)
-        airSimulation.airStatus = req.body.airStatus
+    if(req.query.min !== undefined)
+        airSimulation.min = req.query.min
+    if(req.query.max !== undefined)
+        airSimulation.max = req.query.max
+    if(req.query.target !== undefined)
+        airSimulation.target = req.query.target
+    if(req.query.airStatus !== undefined)
+        airSimulation.airStatus = req.query.airStatus
 
     res.json()
 })
 
-app.get('/temperature-avg',(req, res) => {
-    console.log("Change Mod Simulated at ", Date())
-    res.json({avg: 24.6})
-})
+// app.get('/temperature-avg',(req, res) => {
+//     console.log("Change Mod Simulated at ", Date())
+//     res.json({avg: 24.6})
+// })
 
 app.get('/sensor-history',(req, res) => {
     console.log("Change Mod Simulated at ", Date())
 
-    if(req.body.topic === undefined){
+    if(req.query.topic === undefined){
         res.status(400)
         res.json({error:'Invalid Request. Sensor Topic Required.'})
     
-    } else if (req.body.topic.includes("temp")) {
-        res.json({
+    } else if (req.query.topic.includes("temp")) {
+        let fake = {
             size: 5,
-            results: [
-                '{"s":"20/11/2020 12:30:44","0":21,"temp":24.7}',
-                '{"s":"21/11/2020 12:30:44","0":21,"temp":28.0}',
-                '{"s":"22/11/2020 12:30:44","0":21,"temp":22.3}',
-                '{"s":"23/11/2020 12:30:44","0":21,"temp":18.4}',
-                '{"s":"24/11/2020 12:30:44","0":21,"temp":19.5}',
-            ]
-        })
-    } else if (req.body.topic.includes("umid")) {
-        res.json({
+            results: []
+        }
+
+        const qtd = getRand(200,500)
+        for(let i = 0; i < qtd; i++)
+            fake.results.push(JSON.parse(`{"s":"${(1+i)%30}/${(1+i)%12}/2020 12:30:44","0":21,"temp":${getRand(18,35)}}`))
+        res.json(fake)
+
+    } else if (req.query.topic.includes("umid")) {
+        let fake = {
             size: 5,
-            results: [
-                '{"s":"20/11/2020 12:30:44","0":21,"umid":24.7}',
-                '{"s":"21/11/2020 12:30:44","0":21,"umid":28.0}',
-                '{"s":"22/11/2020 12:30:44","0":21,"umid":22.3}',
-                '{"s":"23/11/2020 12:30:44","0":21,"umid":18.4}',
-                '{"s":"24/11/2020 12:30:44","0":21,"umid":19.5}',
-            ]
-        })
+            results: []
+        }
+
+        const qtd = getRand(1,100)
+        for(let i = 0; i < qtd; i++)
+            fake.results.push(JSON.parse(`{"s":"${(1+i)%30}/${(1+i)%12}/2020 12:30:44","0":21,"umid":${getRand(10,50)}}`))
+        res.json(fake)
     }
 })
 
