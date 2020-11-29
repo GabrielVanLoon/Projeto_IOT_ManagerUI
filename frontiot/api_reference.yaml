@@ -10,19 +10,8 @@ endpoints:
         max:      int [17,23]
         min:      int [16,22]
         target:   int [16,23]
-        mode:       Boolean (true = automatico, false = manual)
-        air-status: Boolean (true = ligado, false = desligado)
-    error:
-      code: 400
-
-  /change-mode:
-    method: POST
-    description: Alterna o ar-condicionado entre o modo automatico e manual
-    params:
-      APIKEY: 32 Bytes Hash obrigatória
-      mode:   Boolean (true = automatico, false = manual)
-    success:
-      code: 200
+        airMode:     String in {"auto", "manual"}
+        airStatus: Boolean (true = ligado, false = desligado)
     error:
       code: 400
 
@@ -32,10 +21,11 @@ endpoints:
                   recebe a temperatura ideal e se pretende ligar ou desligar o ar condicionado.
     params:
       APIKEY:   32 Bytes Hash obrigatória
-      max:      int [17,23]
-      min:      int [16,22]
-      target:   int [16,23]
-      air-status: Boolean (true = ligado, false = desligado)
+      airMode:     String in {"auto", "manual"}
+      max:      int [17,23] ("auto")
+      min:      int [16,22] ("auto")
+      target:   int [16,23] ("manual")
+      airStatus: Boolean (true = ligado, false = desligado) ("manual")
     success:
       code: 200
     error:
@@ -57,6 +47,16 @@ endpoints:
     error:
       code: 400
 
+  # /change-mode:
+  #   method: POST
+  #   description: Alterna o ar-condicionado entre o modo automatico e manual
+  #   params:
+  #     APIKEY: 32 Bytes Hash obrigatória
+  #     airMode:   String in {"auto", "manual"}
+  #   success:
+  #     code: 200
+  #   error:
+  #     code: 400
 
   # /temperature-avg:
   #   deprecated: true

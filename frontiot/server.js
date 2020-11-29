@@ -56,11 +56,11 @@ app.post('/api/auth',(req, res) => {
 
 // Microsservices simulation
 let airSimulation = {
+    min: 16,
     max: 23,
-    min: 26,
     target: 20,
-    airStatus: true,
-    mode: true,
+    airStatus: 1,
+    airMode: "auto",
 }
 
 app.get('/air-information',(req, res) => {
@@ -71,12 +71,12 @@ app.get('/air-information',(req, res) => {
 app.post('/change-mode',(req, res) => {
     console.log("Change Mod Simulated at ", Date())
     
-    if(req.query.mode === undefined){
+    if(req.query.airMode === undefined){
         res.status(400)
         res.json({error:'Invalid Request. Username and password required.'})
     
     } else {
-        airSimulation.mode = req.query.mode
+        airSimulation.airMode = req.query.airMode
         res.json()
     }
 })
@@ -92,6 +92,8 @@ app.post('/set-temperature',(req, res) => {
         airSimulation.target = req.query.target
     if(req.query.airStatus !== undefined)
         airSimulation.airStatus = req.query.airStatus
+    if(req.query.airMode !== undefined)
+        airSimulation.airMode = req.query.airMode
 
     res.json()
 })

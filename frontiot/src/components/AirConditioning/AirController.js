@@ -1,17 +1,64 @@
 import React, { useState, useEffect } from 'react';
 import './AirController.css';
 
+import microAPI from '../../services/microsservice'
+
+
 import { Container, Grid, Typography, ButtonGroup, Button } from '@material-ui/core';
-import { FormControlLabel, FormControl, InputLabel, Select, MenuItem, Switch, Slider } from '@material-ui/core';
-import { SettingsRemoteIcon, SendIcon } from '@material-ui/icons';
+import { FormHelperText, FormControl, InputLabel, Select, MenuItem, Switch, Slider } from '@material-ui/core';
+import Alert from '@material-ui/lab/Alert';
+
+import SettingsRemoteIcon from '@material-ui/icons/SettingsRemote';
+import SendIcon from '@material-ui/icons/Send';
+import RotateLeftIcon from '@material-ui/icons/RotateLeft';
 
 function AirController(props){
 
-    const [airMode, setAirMode] = useState(0)
+    const [airMode, setAirMode] = useState("auto")
     const [airStatus, setAirStatus] = useState(true)
-    const [minTemp, setMinTemp] = useState(null)
-    const [maxTemp, setMaxTemp] = useState(null)
+    const [minMaxTemp, setMinMaxTemp] = useState([16,23])
     const [targetTemp, setTargetTemp] = useState(21)
+
+    const [errorMessage, setErrorMessage] = useState(null)
+
+    const handleBoundaries = (event, value) => {
+        if(value[0] > 22) value[0] = 22
+        if(value[1] < 17) value[1] = 17
+        setMinMaxTemp(value)
+    }
+
+    const getAirInformation = () => {
+        microAPI.get('air-information')
+        .then(response => { 
+            const apiData = response.data
+            setAirMode(apiData.airMode)
+            setAirStatus(apiData.airStatus)
+            setMinMaxTemp([apiData.min, apiData.max])
+            setTargetTemp(apiData.target)
+            setErrorMessage(null)
+        })
+        .catch(err => { setErrorMessage("Error on reach API. Try Again Later!")})
+    }
+
+    const updateAirInformation = () => {
+        let url = `set-temperature?APIKEY=${123}&airMode=${airMode}`
+
+        if(airMode == "auto")
+            url += `&min=${minMaxTemp[0]}&max=${minMaxTemp[1]}`
+        else 
+            url += `&target${targetTemp}&airStatus=${airStatus}`
+        
+
+        microAPI.post(url)
+        .then(response => { setErrorMessage(null)})
+        .catch(err => { setErrorMessage("Error on reach API. Try Again Later!")})
+    }
+
+    useEffect(() => {
+        // Init States with info from API only in the first render
+        getAirInformation()
+    }, [])
+
 
     return (
         <Container style={{paddingTop: 24, paddingBottom: 24}}>
@@ -22,32 +69,56 @@ function AirController(props){
             <FormControl fullWidth style={{ marginBottom: 16 }}>
                 <InputLabel>Select Operation Mode</InputLabel>
                 <Select value={airMode} onChange={(e) => setAirMode(e.target.value)}>
-                    <MenuItem value={0}>Manual</MenuItem>
-                    <MenuItem value={1}>Automatic</MenuItem>
+                    <MenuItem value="manual">Manual</MenuItem>
+                    <MenuItem value="auto">Automatic</MenuItem>
                 </Select>
+                <FormHelperText>* The Automatic Mode Turns the Air ON if the average 
+                    temperature of the room is out the defined boundaries.</FormHelperText>
             </FormControl>  
 
-            <Typography variant="h6" gutterTop gutterBottom>Air Conditioning Status</Typography>
-            <ButtonGroup style={{ marginBottom: 16 }}>
-                <Button variant={(airStatus) ? "contained" : "outlined"} color="primary" 
-                    onClick={() => setAirStatus(1)}>AIR ON</Button>
-                <Button variant={(!airStatus) ? "contained" : "outlined"} color="secondary" 
-                    onClick={() => setAirStatus(0)}>AIR OFF</Button>
-            </ButtonGroup>
-            
-            <Typography variant="h6" gutterBottom>Select Target Temperature (ºC)</Typography>
-            <Slider style={{ marginBottom: 16 }}
-                min={16} max={23} defaultValue={targetTemp} step={0.5}
-                getAriaValueText={(v) => `${v} ºC`} marks
-                aria-labelledby="discrete-slider-custom"
-                valueLabelDisplay="auto"
-                onChange={(e,value) => setTargetTemp(value)} />
+            { airMode == "manual" && 
+                <>
+                <Typography variant="h6" gutterTop gutterBottom>Air Conditioning Status</Typography>
+                <ButtonGroup style={{ marginBottom: 16 }}>
+                    <Button variant={(airStatus) ? "contained" : "outlined"} color="primary" 
+                        onClick={() => setAirStatus(1)}>AIR ON</Button>
+                    <Button variant={(!airStatus) ? "contained" : "outlined"} color="secondary" 
+                        onClick={() => setAirStatus(0)}>AIR OFF</Button>
+                </ButtonGroup>
+                
+                <Typography variant="h6" gutterBottom>Select Target Temperature ({targetTemp}ºC)</Typography>
+                <Slider style={{ marginBottom: 16 }}
+                    min={16} max={23} defaultValue={targetTemp} step={0.5}
+                    getAriaValueText={(v) => `${v} ºC`} marks
+                    aria-labelledby="discrete-slider-custom"
+                    valueLabelDisplay="auto"
+                    onChange={(e,value) => setTargetTemp(value)} />
+                </>
+            }
 
-            <Typography align="right">
+            { airMode == "auto" && 
+                <>
+                <Typography variant="h6" gutterBottom>Select Boundaries ({minMaxTemp[0]} to {minMaxTemp[1]} ºC)</Typography>
+                <Slider style={{ marginBottom: 16 }}
+                    min={16} max={23} defaultValue={minMaxTemp} step={0.5}
+                    getAriaValueText={(v) => `${v} ºC`} marks
+                    aria-labelledby="discrete-slider-custom"
+                    valueLabelDisplay="auto"
+                    onChange={handleBoundaries} />
+                </>
+            }
+
+            <Typography align="right" style={{ marginBottom: 12 }}>
+                <Button variant="outlined" color="Secondary" style={{marginRight: 16 }} 
+                    onClick={getAirInformation} startIcon={<RotateLeftIcon/>} >RESET CHANGES</Button>
+                
                 <Button variant="contained" color="primary" 
-                    startIcon={<SendIcon />}>SEND UPDATES</Button>
+                    onClick={updateAirInformation} startIcon={<SendIcon/>} >SEND UPDATES</Button>
             </Typography>
 
+            { errorMessage && 
+                <Alert severity="error">{errorMessage}</Alert>
+            }
 
         </Container>
     )
