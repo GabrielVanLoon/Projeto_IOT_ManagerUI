@@ -114,7 +114,7 @@ app.get('/sensor-history',(req, res) => {
             results: []
         }
 
-        const qtd = getRand(200,500)
+        const qtd = req.query.period * 60 //getRand(200,500)
         for(let i = 0; i < qtd; i++)
             fake.results.push(JSON.parse(`{"s":"${(1+i)%30}/${(1+i)%12}/2020 12:30:44","0":21,"temp":${getRand(18,35)}}`))
         res.json(fake)
@@ -125,7 +125,7 @@ app.get('/sensor-history',(req, res) => {
             results: []
         }
 
-        const qtd = getRand(1,100)
+        const qtd = req.query.period * 60 //getRand(200,500)
         for(let i = 0; i < qtd; i++)
             fake.results.push(JSON.parse(`{"s":"${(1+i)%30}/${(1+i)%12}/2020 12:30:44","0":21,"umid":${getRand(10,50)}}`))
         res.json(fake)

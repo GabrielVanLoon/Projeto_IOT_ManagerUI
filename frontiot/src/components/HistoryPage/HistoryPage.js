@@ -6,7 +6,8 @@ import SensorChart from './SensorChart'
 import microAPI from '../../services/microsservice'
 
 import { Container, Grid, Paper, Typography } from '@material-ui/core';
-import { List, ListItem, ListItemIcon, ListItemText, Divider} from '@material-ui/core';
+import { List, ListItem, ListItemIcon, ListItemText, Divider } from '@material-ui/core';
+import { FormControl, InputLabel, Select, MenuItem } from '@material-ui/core';
 import Alert from '@material-ui/lab/Alert';
 
 import TemperatureIcon from '../../img/heat.svg'
@@ -19,9 +20,10 @@ function HistoryPage(props){
     const [chartWidth, setChartWidth] = useState(null)
     const [chartHeight, setChartHeight] = useState(null)
 
-    const [currentTopic, setcurrentTopic] = useState(null)
+    const [currentTopic, setcurrentTopic] = useState(`${schema.room.id}/temp/${schema.room.sensors.temperature[0]}`)
     const [dataset, setDataset] = useState(null)
     const [errorMessage, setErrorMessage] = useState(null)
+    const [period, setPeriod] = useState(1)
 
     useEffect(() => {
         if(chartContainer.current) {
@@ -29,12 +31,12 @@ function HistoryPage(props){
             setChartHeight(chartContainer.current.offsetWidth/2)
         }
 
-
     }, [chartContainer])
 
     const renderItem = (SensorIcon, topic, text) => {
+
         return(
-            <ListItem key={topic} button color="inherit" onClick={() => setcurrentTopic(topic)}>
+            <ListItem key={topic} selected={topic === currentTopic} button color="inherit" onClick={() => setcurrentTopic(topic)}>
                 <ListItemIcon>
                     <img className="SensorIcon" src={SensorIcon} alt="temp"/>
                 </ListItemIcon>
@@ -44,11 +46,15 @@ function HistoryPage(props){
         );
     }
 
+    const handleChange = (event) => {
+        setPeriod(event.target.value);
+    };
+
     useEffect(() => {
         if(!currentTopic)
             return
         
-        microAPI.get(`sensor-history?APIKEY=${123}&topic=${currentTopic}&period=${24}`)
+        microAPI.get(`sensor-history?APIKEY=${123}&topic=${currentTopic}&period=${period}`)
         .then(response => {
             const microsserviceData = response.data
             
@@ -72,7 +78,7 @@ function HistoryPage(props){
             setErrorMessage("Error on reach data, Try Again Later!")
         })
         
-    }, [currentTopic])
+    }, [currentTopic, period])
 
     return (
       <div className="HistoryPage">
@@ -105,6 +111,19 @@ function HistoryPage(props){
                     </Grid>
 
                     <Grid item xs={12} md={8} ref={chartContainer}>
+                    
+                        <FormControl fullWidth style={{ marginBottom: 24 }}>
+                            <InputLabel>Select the Time Period</InputLabel>
+                            <Select value={period} onChange={handleChange}>
+                                <MenuItem value={1}>Last one hour</MenuItem>
+                                <MenuItem value={3}>Last three hours</MenuItem>
+                                <MenuItem value={6}>Last six hours</MenuItem>
+                                <MenuItem value={12}>Last twelve hours</MenuItem>
+                                <MenuItem value={24}>Last day</MenuItem>
+                                <MenuItem value={24*7}>Last week</MenuItem>
+                            </Select>
+                        </FormControl>
+
                         { chartContainer.current && currentTopic && dataset &&
                             <SensorChart width={chartWidth} height={chartHeight} dataset={dataset}/>
                         }
