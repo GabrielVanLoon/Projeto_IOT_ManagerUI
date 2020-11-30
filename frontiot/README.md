@@ -1,70 +1,69 @@
-# Getting Started with Create React App
+# Aplicação Internet of Things
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Camada de aplicação do projeto da disciplina SSC0952 - Internet das Coisas (2020) utilizando uma Aplicação Web com React e Node.js.
 
-## Available Scripts
+## Etapas para Instalar e Configurar
 
-In the project directory, you can run:
+### Instalando Pacotes
 
-### `npm start`
+O projeto possui como dependências os seguintes pacotes:
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+* **Node.js:** versão 10.23.x ou superior.
+* **NPM:** gerenciador de pacotes do Node.js versão 3.5.x ou superior.
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+Caso esteja utilizando uma distribuição Debian like é possível baixar as dependências utilizando os seguintes comandos:
 
-### `npm test`
+```bash=
+$ sudo apt update
+$ sudo apt install npm
+$ curl -sL https://deb.nodesource.com/setup_10.x | sudo -E bash -
+$ sudo apt-get install -y nodejs
+```
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### Instalando Dependências e Fazendo Build
 
-### `npm run build`
+Para instalar as dependências da aplicação basta utilizar o próprio gerenciar **npm** com o comando:
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+```bash=
+$ npm install
+$ npm build
+```
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+Caso não ocorra nenhum erro, duas novas pastas: `/node_modules` e `/build` serão criadas dentro da pasta da aplicação.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### Variáveis de Ambiente
 
-### `npm run eject`
+Por fim, para que o projeto seja executado corretamente é necessário configurar as variáveis de ambiente do projeto criando um arquivo `.env` similar ao modelo definido em `.env.example`.
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+A seguir uma breve explicação de cada uma das variáveis:
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+* VARIÁVEIS DO NODE.JS
+    * **SERVER_PORT:** porta aberta pelo servidor Express do Node.js.
+* VARIÁVEIS DE AUTENTICAÇÃO
+    * **USERNAME e PASSWORD:** utilizadas para validar o nível de acesso do usuário durante o login.
+* VARIÁVEIS DO BROKER
+    * **BROKER_URL:** url completa em que se encontra o WebSocket do broker (ex: `ws://dominio.do.broker:9001`)
+    * **BROKER_HOST:** apenas o host do BROKER_URL (ex: `dominio.do.broker`)
+    * **BROKER_PORT:** apenas a porta do BROKER_URL (ex: `9001`)
+    * **BROKER_USERNAME & PASSWORD:** dados de autenticação no broker caso seja necessário.
+* VARIÁVEIS DO MICROSSERVIÇO
+    * **MICRO_HOST:** domínio em que se encontra os endpoints dos microsserviços (obs: não adicionar protocolo ou porta).
+    * **MICRO_PORT:** porta em que se encontra os endpoints dos microsserviços.
+    * **MICRO_APIKEY:** chave utilizada pelos microsserviços para validar o nivel de acesso aos endpoints.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+Com todas as variáveis configuradas ja é possível executar e testar o projeto.
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+## Execução em Foreground
 
-## Learn More
+Para executar o servidor e verificar se está tudo OK basta executar o seguinde comando:
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+```bash=
+$ node server.js
+```
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+E então utilizar o navegador para verificar se a tela de login carregou corretamente (caso contrário alguma etapa ou variável de ambiente foi configurado de forma errônea).
 
-### Code Splitting
+## Telas e Funcionalidades
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+Para visualizar as telas do projeto sem realizar a instação e configuração dos arquivos [clique aqui](./TELAS.md).
 
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
