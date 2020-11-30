@@ -1,5 +1,4 @@
 import axios from "axios";
-import { getToken } from "./auth";
 
 // Build API
 // const api = axios.create();

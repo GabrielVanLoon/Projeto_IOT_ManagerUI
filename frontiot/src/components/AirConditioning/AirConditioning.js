@@ -5,14 +5,14 @@ import schema from '../../things_schema.json'
 import AirController from './AirController'
 
 import { Paper, Grid, Typography, Dialog, DialogTitle, DialogContent, DialogActions, Button, IconButton } from '@material-ui/core';
-import { Table, TableBody, TableRow, TableCell, TableContainer} from '@material-ui/core';
+import { Table, TableBody, TableRow, TableCell} from '@material-ui/core';
 import WifiOffIcon from '@material-ui/icons/WifiOff';
 import WifiIcon from '@material-ui/icons/Wifi';
 // import SettingsRemoteIcon from '@material-ui/icons/SettingsRemote';
 
 function AirConditioningSensor(props) {
 
-    const sensorPublishTopic = `${schema.team}/aircon/${props.sensorID}`
+    // const sensorPublishTopic = `${schema.team}/aircon/${props.sensorID}`
     const sensorSubscribeTopic = `${schema.team}/response`
 
     const [sensorValue, setSensorValue] = useState(false)

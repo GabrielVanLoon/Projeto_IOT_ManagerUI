@@ -1,4 +1,4 @@
-import React, { Component , useState, useEffect} from 'react'
+import React, { useState, useEffect} from 'react'
 import './DevicesPage.css'
 
 import mqtt from 'mqtt'
@@ -11,7 +11,7 @@ import Temperature from '../Temperature/Temperature'
 import Humidity from '../Humidity/Humidity'
 import Movement from '../Movement/Movement'
 
-import { Paper, withStyles, Grid, Typography, Container } from '@material-ui/core';
+import { Paper, Grid, Typography, Container } from '@material-ui/core';
 import CircularProgress from '@material-ui/core/CircularProgress';
 
 

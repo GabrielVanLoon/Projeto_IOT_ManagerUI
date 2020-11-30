@@ -3,8 +3,8 @@ import './AirController.css';
 
 import microApiFactory from '../../services/microsservice'
 
-import { Container, Grid, Typography, ButtonGroup, Button } from '@material-ui/core';
-import { FormHelperText, FormControl, InputLabel, Select, MenuItem, Switch, Slider } from '@material-ui/core';
+import { Container, Typography, ButtonGroup, Button } from '@material-ui/core';
+import { FormHelperText, FormControl, InputLabel, Select, MenuItem, Slider } from '@material-ui/core';
 import Alert from '@material-ui/lab/Alert';
 
 import SettingsRemoteIcon from '@material-ui/icons/SettingsRemote';
@@ -44,7 +44,7 @@ function AirController(props){
     const updateAirInformation = () => {
         let url = `set-temperature?APIKEY=${123}&airMode=${airMode}`
 
-        if(airMode == "auto")
+        if(airMode === "auto")
             url += `&min=${minMaxTemp[0]}&max=${minMaxTemp[1]}`
         else 
             url += `&target=${targetTemp}&airStatus=${airStatus}`
@@ -78,7 +78,7 @@ function AirController(props){
                     temperature of the room is out the defined boundaries.</FormHelperText>
             </FormControl>  
 
-            { airMode == "manual" && 
+            { airMode === "manual" && 
                 <>
                 <Typography variant="h6" gutterTop gutterBottom>Air Conditioning Status</Typography>
                 <ButtonGroup style={{ marginBottom: 16 }}>
@@ -98,7 +98,7 @@ function AirController(props){
                 </>
             }
 
-            { airMode == "auto" && 
+            { airMode === "auto" && 
                 <>
                 <Typography variant="h6" gutterBottom>Select Boundaries ({minMaxTemp[0]} to {minMaxTemp[1]} ºC)</Typography>
                 <Slider style={{ marginBottom: 16 }}
