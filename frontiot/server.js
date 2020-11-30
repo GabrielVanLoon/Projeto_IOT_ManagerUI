@@ -75,7 +75,7 @@ let airSimulation = {
 }
 
 app.get('/air-information',(req, res) => {
-    console.log("Air Information Simmulated at ", Date())
+    console.log("Air Information Consulted at ", Date())
     res.json(airSimulation)
 })
 
@@ -93,7 +93,7 @@ app.post('/change-mode',(req, res) => {
 })
 
 app.post('/set-temperature',(req, res) => {
-    console.log("Change Mod Simulated at ", Date())
+    console.log("Temperature Setted at ", Date())
     
     if(req.query.min !== undefined)
         airSimulation.min = req.query.min
@@ -115,7 +115,7 @@ app.post('/set-temperature',(req, res) => {
 // })
 
 app.get('/sensor-history',(req, res) => {
-    console.log("Change Mod Simulated at ", Date())
+    console.log("Sensor History Consulted at ", Date())
 
     if(req.query.topic === undefined){
         res.status(400)
