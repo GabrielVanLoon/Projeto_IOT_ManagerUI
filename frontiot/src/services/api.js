@@ -1,16 +1,12 @@
 import axios from "axios";
 import { getToken } from "./auth";
 
-const api = axios.create({
-  baseURL: "http://localhost:3333"
-});
+// Build API
+// const api = axios.create();
 
-// api.interceptors.request.use(async config => {
-//   const token = getToken();
-//   if (token) {
-//     config.headers.Authorization = `Bearer ${token}`;
-//   }
-//   return config;
-// });
+// NPM Start API
+const api = axios.create({
+    baseURL: "http://localhost:3333/"
+});
 
 export default api;

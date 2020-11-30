@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './AirController.css';
 
-import microAPI from '../../services/microsservice'
-
+import microApiFactory from '../../services/microsservice'
 
 import { Container, Grid, Typography, ButtonGroup, Button } from '@material-ui/core';
 import { FormHelperText, FormControl, InputLabel, Select, MenuItem, Switch, Slider } from '@material-ui/core';
@@ -15,7 +14,7 @@ import RotateLeftIcon from '@material-ui/icons/RotateLeft';
 function AirController(props){
 
     const [airMode, setAirMode] = useState("auto")
-    const [airStatus, setAirStatus] = useState(true)
+    const [airStatus, setAirStatus] = useState(1)
     const [minMaxTemp, setMinMaxTemp] = useState([16,23])
     const [targetTemp, setTargetTemp] = useState(21)
 
@@ -28,6 +27,8 @@ function AirController(props){
     }
 
     const getAirInformation = () => {
+        const microAPI = microApiFactory()
+
         microAPI.get('air-information')
         .then(response => { 
             const apiData = response.data
@@ -46,8 +47,9 @@ function AirController(props){
         if(airMode == "auto")
             url += `&min=${minMaxTemp[0]}&max=${minMaxTemp[1]}`
         else 
-            url += `&target${targetTemp}&airStatus=${airStatus}`
+            url += `&target=${targetTemp}&airStatus=${airStatus}`
         
+        const microAPI = microApiFactory()
 
         microAPI.post(url)
         .then(response => { setErrorMessage(null)})

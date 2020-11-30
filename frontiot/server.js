@@ -34,6 +34,7 @@ app.use(express.json())
 app.use((req, res, next) => {
     res.header("Access-Control-Allow-Origin", "*");
     res.header("Access-Control-Allow-Methods", 'GET,POST');
+    res.header("Access-Control-Allow-Headers", "*")
     app.use(cors());
     next();
 });
@@ -58,7 +59,7 @@ app.post('/api/auth',(req, res) => {
         console.log("Login Successful")
         res.json({
             mqtt: mqttAuthInformation,
-            microsservices: microsserviceInformation
+            microsservice: microsserviceInformation
         })
     }
 })

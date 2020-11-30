@@ -4,11 +4,11 @@ import './LoginForm.css'
 import { Link as RouterLink, Redirect } from "react-router-dom"
 
 import { Link, Paper, withStyles, Grid, TextField, Button, FormControlLabel, Checkbox, Typography } from '@material-ui/core';
-import { Face, LockOutlined } from '@material-ui/icons'
+import { ErrorOutlineSharp, Face, LockOutlined } from '@material-ui/icons'
 import Alert from '@material-ui/lab/Alert';
 
 
-import api       from "../../services/api";
+import api from "../../services/api";
 import { login } from "../../services/auth";
 
 const styles = theme => ({
@@ -28,19 +28,20 @@ class LoginForm extends React.Component {
     
     handleSubmit = async e => {
         e.preventDefault();
-        const { username, password } = this.state;
 
-        if (!username || !password) {
+        if (!this.state.username || !this.state.password) {
             this.setState({ error: "Username and password required." });
             return
         }
 
-        api.post('api/auth', { username, password })
+        //alert(JSON.stringify({ username: this.state.username, password: this.state.password}))
+
+        api.post('/api/auth', { username: this.state.username, password: this.state.password})
         .then(response => {
             const brokerData = response.data
             login(brokerData)
             this.setState({ error: "", redirect: true });
-        }).catch(err => {
+        }).catch(ErrorOutlineSharp => {
             this.setState({ error: "Invalid username or password." });
         })
     };
@@ -53,7 +54,7 @@ class LoginForm extends React.Component {
                 <form onSubmit={this.handleSubmit} >
                     
                     { this.state.redirect && 
-                        <Redirect to="/home" />
+                        <Redirect to="/devices" />
                     }
                     
                     { this.state.error && 

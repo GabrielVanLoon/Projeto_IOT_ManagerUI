@@ -3,7 +3,7 @@ import './HistoryPage.css';
 
 import schema from '../../things_schema.json'
 import SensorChart from './SensorChart'
-import microAPI from '../../services/microsservice'
+import microApiFactory from '../../services/microsservice'
 
 import { Container, Grid, Paper, Typography } from '@material-ui/core';
 import { List, ListItem, ListItemIcon, ListItemText, Divider } from '@material-ui/core';
@@ -54,7 +54,8 @@ function HistoryPage(props){
         if(!currentTopic)
             return
         
-        microAPI.get(`sensor-history?APIKEY=${123}&topic=${currentTopic}&period=${period}`)
+        const microAPI = microApiFactory()
+        microAPI.get(`sensor-history?topic=${currentTopic}&period=${period}`)
         .then(response => {
             const microsserviceData = response.data
             

@@ -1,9 +1,23 @@
 import axios from "axios";
 import { getToken } from "./auth";
 
-const microAPI = axios.create({
-  baseURL: "http://localhost:3333"
-});
+
+const microApiFactory = () => { 
+  if(!getToken())
+    return null
+
+  let microAPI = axios.create({
+    baseURL: `http://${getToken().microsservice.host}:${getToken().microsservice.port}`
+  });
+  
+  microAPI.interceptors.request.use((config) => {
+    config.params = config.params || {};
+    config.params['APIKEY'] = getToken().microsservice.APIKEY;
+    return config;
+  });
+
+  return microAPI
+}
 
 // microAPI.interceptors.request.use(async config => {
 //   const token = getToken();
@@ -13,4 +27,4 @@ const microAPI = axios.create({
 //   return config;
 // });
 
-export default microAPI;
+export default microApiFactory;

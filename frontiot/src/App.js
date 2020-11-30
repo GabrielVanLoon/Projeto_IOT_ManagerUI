@@ -30,9 +30,8 @@ class App extends Component {
             <Header/>
             <main>
               <Switch>
-                <PrivateRoute path="/devices-bkp" component={DevicesPage} />
-                <Route path="/devices" component={DevicesPage}/>
-                <Route path="/devices-history" component={HistoryPage}/>
+                <PrivateRoute path="/devices" component={DevicesPage}/>
+                <PrivateRoute path="/devices-history" component={HistoryPage}/>
                 <Route path="/" component={LoginPage} default/>
               </Switch>
             </main>
