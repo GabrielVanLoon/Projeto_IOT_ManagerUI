@@ -18,6 +18,12 @@ const mqttAuthInformation = {
     password:   process.env.BROKER_PASSWORD || "mqtt_password_here"
 }
 
+const microsserviceInformation = {
+    host:       process.env.MICRO_HOST || "localhost",
+    port:       process.env.MICRO_PORT || 3333,
+    APIKEY:     process.env.MICRO_APIKEY || "32_bytes_hash_here"
+}
+
 function getRand(min, max) {
     return Math.random() * (max - min) + min;
 }
@@ -50,7 +56,10 @@ app.post('/api/auth',(req, res) => {
     
     } else {
         console.log("Login Successful")
-        res.json(mqttAuthInformation)
+        res.json({
+            mqtt: mqttAuthInformation,
+            microsservices: microsserviceInformation
+        })
     }
 })
 
