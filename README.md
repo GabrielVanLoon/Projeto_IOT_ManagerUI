@@ -1,15 +1,24 @@
 # Projeto - Internet of Things User Application
 Camada de aplicação do projeto da disciplina SSC0952 - Internet das Coisas (2020) utilizando uma Aplicação Web com React e Node.js.
 
-## Informações do Checkpoint 2 
+## Descrição do Projeto
 
-Para o segundo checkpoint foi desenvolvido a aplicação web `websocket-client` que teve como objetivos:
+O projeto conta com duas aplicações web feitas com o framework **React.js**: `Front IOT` e `Websocket-Client`, ambas desenvolvidas com finalidades distintas.
 
-- Testar a comunicação do protocolo MQTT utilizando Websockets
-- Implementar as comunicações e regras de mensagens para cada um tipos de sensores
-- Criar uma aplicação que simulasse o comportamento do laboratório real
+## Aplicação: Front IOT 
 
-Esta aplicação está pronta e funcional. Para executá-la basta seguir as instruções da pasta [README.md](/websock-client).
+Aplicação definitiva criada para servir como interface ao usuário final do projeto. Possui comunicações com o Broker e com a camada de Microsserviços.
 
-Já a aplicação `frontiot` (que será a aplicação com interface e funcionalidades finais) ainda está com a interface em construção mas conseguirá reaproveitar toda a lógica de conexão já criada no `websocket-client`. O objetivo dela será, além de agir como client do broker,  possuir uma tela simples de autenticação e também algumas telas que exibam informações vindas do microsserviços.
+![](https://i.imgur.com/prVEpHo.png)
 
+Mais detalhes sobre como instalar e executar no [README.md](/frontiot).
+
+## Aplicação: WebSocket Client
+
+Aplicação criada para as primeiras etapas do projeto e que possui uma interface visual para se comunicar com o Broker MQTT utilizando conexões via Websocket.
+
+Possui também o papel de, junto com um container docker, simular o broker e o comportamento dos dispositivos publicando dados no Mosquitto no formato JSON conforme as regras especificadas previamente no projeto.
+
+![](https://i.imgur.com/LVdFy5z.png)
+
+Mais detalhes sobre como instalar e executar no [README.md](/websock-client).
