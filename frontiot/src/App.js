@@ -6,6 +6,7 @@ import Header from './components/Header/Header'
 import DevicesPage from './components/DevicesPage/DevicesPage'
 import HistoryPage from './components/HistoryPage/HistoryPage'
 import LoginPage from './components/LoginPage/LoginPage'
+import AboutPage from './components/AboutPage/AboutPage'
 import { isAuthenticated } from "./services/auth"
 
 const PrivateRoute = ({ component: Component, ...rest }) => (
@@ -32,6 +33,7 @@ class App extends Component {
               <Switch>
                 <PrivateRoute path="/devices" component={DevicesPage}/>
                 <PrivateRoute path="/devices-history" component={HistoryPage}/>
+                <Route path="/about-the-project" component={AboutPage}/>
                 <Route path="/" component={LoginPage} default/>
               </Switch>
             </main>

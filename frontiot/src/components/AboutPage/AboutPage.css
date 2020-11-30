@@ -1,0 +1,10 @@
+.AboutPage {
+    min-height: 100%;
+    min-height: 100vh;
+    background-image: linear-gradient(to right top, #d05e3c, #9d423a, #692c30, #361a1f, #000000);
+    /* Utilitário: https://mycolor.space/gradient?ori=to+right+top&hex=%23D05E3C&hex2=%23000000&sub=1 */
+}
+
+.AboutPage .SensorIcon {
+    max-width: 3em;
+}
