@@ -12,8 +12,9 @@ const auth = {
 }
 
 const mqttAuthInformation = {
-    host:       process.env.BROKER_HOST || "localhost",
-    port:       process.env.BROKER_PORT || 9001,
+    url:    process.env.BROKER_URL  || "ws://localhost:9001",
+    host:   process.env.BROKER_HOST || "localhost",
+    port:   process.env.BROKER_PORT || 9001,
     // username:   process.env.BROKER_USERNAME || "mqtt_username_here",
     // password:   process.env.BROKER_PASSWORD || "mqtt_password_here"
 }

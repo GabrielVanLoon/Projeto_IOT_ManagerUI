@@ -10,6 +10,7 @@ import Alert from '@material-ui/lab/Alert';
 import SettingsRemoteIcon from '@material-ui/icons/SettingsRemote';
 import SendIcon from '@material-ui/icons/Send';
 import RotateLeftIcon from '@material-ui/icons/RotateLeft';
+import { FormatListNumberedRtlOutlined } from '@material-ui/icons';
 
 function AirController(props){
 
@@ -19,6 +20,7 @@ function AirController(props){
     const [targetTemp, setTargetTemp] = useState(21)
 
     const [errorMessage, setErrorMessage] = useState(null)
+    const [successMessage, setSuccessMessage] = useState(null)
 
     const handleBoundaries = (event, value) => {
         if(value[0] > 22) value[0] = 22
@@ -42,8 +44,7 @@ function AirController(props){
     }
 
     const updateAirInformation = () => {
-        let url = `set-temperature?APIKEY=${123}&airMode=${airMode}`
-
+        let url = `set-temperature?airMode=${airMode}`
         if(airMode === "auto")
             url += `&min=${minMaxTemp[0]}&max=${minMaxTemp[1]}`
         else 
@@ -52,8 +53,14 @@ function AirController(props){
         const microAPI = microApiFactory()
 
         microAPI.post(url)
-        .then(response => { setErrorMessage(null)})
-        .catch(err => { setErrorMessage("Error on reach API. Try Again Later!")})
+        .then(response => { 
+            setSuccessMessage("Updates sent with success!")
+            setErrorMessage(null)
+        })
+        .catch(err => { 
+            setErrorMessage("Error on reach API. Try Again Later!")
+            setSuccessMessage(FormatListNumberedRtlOutlined)
+        })
     }
 
     useEffect(() => {
@@ -119,7 +126,11 @@ function AirController(props){
             </Typography>
 
             { errorMessage && 
-                <Alert severity="error">{errorMessage}</Alert>
+                <Alert severity="error" onClose={() => setErrorMessage(null)} >{errorMessage}</Alert>
+            }
+
+            { successMessage && 
+                <Alert severity="success" onClose={() => setSuccessMessage(null)} >{successMessage}</Alert>
             }
 
         </Container>

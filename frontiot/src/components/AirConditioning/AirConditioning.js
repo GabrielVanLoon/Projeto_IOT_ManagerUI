@@ -65,7 +65,7 @@ function AirConditioningSensor(props) {
                 
                 <DialogContent style={{ padding: 0 }} dividers>
                     <Grid container spacing={0}>
-                        <Grid item xs={6}>
+                        <Grid item xs={12} md={6}>
                             <Table>
                             <TableBody>
                                 <TableRow>
@@ -100,7 +100,7 @@ function AirConditioningSensor(props) {
                             </Table>
                         </Grid>
 
-                        <Grid item xs={6}>
+                        <Grid item xs={12} md={6}>
                             <AirController/>
                         </Grid>
 

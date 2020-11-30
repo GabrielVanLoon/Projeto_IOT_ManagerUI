@@ -2,7 +2,7 @@ import React, { useState, useEffect} from 'react'
 import './DevicesPage.css'
 
 import mqtt from 'mqtt'
-import { getToken } from '../../services/auth'
+import { getToken, isAuthenticated } from '../../services/auth'
 
 
 import AirConditioning from '../AirConditioning/AirConditioning'
@@ -26,11 +26,14 @@ function DevicesPage() {
       if(mqtt_client != null)
         mqtt_client.end()
 
-      if(!getToken().mqtt)
+      if(!isAuthenticated())
         return
 
-      mqtt_client = mqtt.connect({
-        ...getToken().mqtt,
+      const mqttInfo = getToken().mqtt
+
+      mqtt_client = mqtt.connect(mqttInfo.url, {
+        host: mqttInfo.host,
+        port: mqttInfo.port,
         protocol: 'mqtt',
       })
 

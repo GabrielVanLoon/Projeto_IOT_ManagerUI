@@ -21,7 +21,7 @@ endpoints:
                   recebe a temperatura ideal e se pretende ligar ou desligar o ar condicionado.
     params:
       APIKEY:   32 Bytes Hash obrigatória
-      airMode:     String in {"auto", "manual"}
+      airMode:  String in {"auto", "manual"}
       max:      int [17,23] ("auto")
       min:      int [16,22] ("auto")
       target:   int [16,23] ("manual")
