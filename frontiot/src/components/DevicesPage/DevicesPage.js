@@ -1,6 +1,9 @@
 import React, { Component , useState, useEffect} from 'react'
 import './DevicesPage.css'
+
 import mqtt from 'mqtt'
+import { getToken } from '../../services/auth'
+
 
 import AirConditioning from '../AirConditioning/AirConditioning'
 import Luminosity from '../Luminosity/Luminosity'
@@ -22,11 +25,13 @@ function DevicesPage() {
   useEffect( () => {
       if(mqtt_client != null)
         mqtt_client.end()
-      
+
+      if(!getToken().mqtt)
+        return
+
       mqtt_client = mqtt.connect({
-        protocol: process.env.MQTT_PROTOCOL || 'mqtt',
-        host:process.env.MQTT_HOST || '192.168.0.12' || '127.0.0.1',
-        port: process.env.MQTT_PORT || 9001
+        ...getToken().mqtt,
+        protocol: 'mqtt',
       })
 
       mqtt_client.on('connect', () => setConnectionState(true))
