@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './Header.css';
 
 import { Link as RouterLink, useHistory } from 'react-router-dom';
@@ -39,6 +39,7 @@ function Header(props){
 
     const history = useHistory();
     const [ drawerVisible, setDrawerVisible ] = useState(false)
+    const [ updateRender, setUpdateRender] = useState(false)
 
     const toggleDrawer = (open) => (event) => {
         if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) 
@@ -49,8 +50,12 @@ function Header(props){
     const handleLogout = (event) => {
         event.preventDefault()
         logout()
+        setUpdateRender(!updateRender)
         history.push("/");
     }
+
+    // Remove o botão de logout do Header
+    useEffect(() => true, [updateRender])
 
     return(
         <header className="header">

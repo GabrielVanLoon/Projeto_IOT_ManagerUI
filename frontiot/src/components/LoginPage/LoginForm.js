@@ -1,10 +1,10 @@
 import React from 'react';
 import './LoginForm.css'
 
-import { Link as RouterLink, Redirect } from "react-router-dom"
+import { Link as RouterLink, Redirect} from "react-router-dom"
 
-import { Link, Paper, withStyles, Grid, TextField, Button, FormControlLabel, Checkbox, Typography } from '@material-ui/core';
-import { ErrorOutlineSharp, Face, LockOutlined } from '@material-ui/icons'
+import { Link, Paper, withStyles, Grid, TextField, Button, Typography } from '@material-ui/core';
+import { Face, LockOutlined } from '@material-ui/icons'
 import Alert from '@material-ui/lab/Alert';
 
 
@@ -18,7 +18,7 @@ const styles = theme => ({
 });
 
 class LoginForm extends React.Component {
-    
+
     state = {
         username:   "",
         password:   "",
