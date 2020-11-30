@@ -72,7 +72,7 @@ function AirController(props){
                     <MenuItem value="manual">Manual</MenuItem>
                     <MenuItem value="auto">Automatic</MenuItem>
                 </Select>
-                <FormHelperText>* The Automatic Mode Turns the Air ON if the average 
+                <FormHelperText>*The Automatic Mode Turns the Air ON if the average 
                     temperature of the room is out the defined boundaries.</FormHelperText>
             </FormControl>  
 
