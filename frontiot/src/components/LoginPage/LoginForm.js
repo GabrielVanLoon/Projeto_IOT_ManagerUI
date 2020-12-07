@@ -8,7 +8,7 @@ import { Face, LockOutlined } from '@material-ui/icons'
 import Alert from '@material-ui/lab/Alert';
 
 
-import api from "../../services/api";
+import microApiFactory from '../../services/microsservice'
 import { login } from "../../services/auth";
 
 const styles = theme => ({
@@ -35,7 +35,8 @@ class LoginForm extends React.Component {
         }
 
         //alert(JSON.stringify({ username: this.state.username, password: this.state.password}))
-
+        let api = microApiFactory();
+        
         api.post('/api/auth', { username: this.state.username, password: this.state.password})
         .then(response => {
             const brokerData = response.data
