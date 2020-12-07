@@ -26,7 +26,7 @@ Para instalar as dependências da aplicação basta utilizar o próprio gerencia
 
 ```bash=
 $ npm install
-$ npm build
+$ npm run-script build
 ```
 
 Caso não ocorra nenhum erro, duas novas pastas: `/node_modules` e `/build` serão criadas dentro da pasta da aplicação.
@@ -47,9 +47,11 @@ A seguir uma breve explicação de cada uma das variáveis:
     * **BROKER_PORT:** apenas a porta do BROKER_URL (ex: `9001`)
     * **BROKER_USERNAME & PASSWORD:** dados de autenticação no broker caso seja necessário.
 * VARIÁVEIS DO MICROSSERVIÇO
-    * **MICRO_HOST:** domínio em que se encontra os endpoints dos microsserviços (obs: não adicionar protocolo ou porta).
-    * **MICRO_PORT:** porta em que se encontra os endpoints dos microsserviços.
+    * **REACT_APP_MICRO_HOST:** domínio em que se encontra os endpoints dos microsserviços (obs: não adicionar protocolo ou porta).
+    * **REACT_APP_MICRO_PORT:** porta em que se encontra os endpoints dos microsserviços.
     * **MICRO_APIKEY:** chave utilizada pelos microsserviços para validar o nivel de acesso aos endpoints.
+
+Obs: As variáveis iniciadas com REACT_APP_ são inseridas na aplicação apenas na versão gerada após o comando `npm run-script build`, caso contrário por padrão todas as requisições da aplicação serão direcionadas para o `server.js` localizado por padrão na url `http://localhost:9001/`.
 
 Com todas as variáveis configuradas ja é possível executar e testar o projeto.
 
